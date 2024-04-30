@@ -11,7 +11,7 @@ package cse.airplane_management_system;
 public class Airplane_Management_System {
 
     public static void main(String[] args) {
-        System.out.println("박상현");
-        System.out.println("박경빈");
+        System.out.println("123");
+        System.out.println("456");
     }
 }
