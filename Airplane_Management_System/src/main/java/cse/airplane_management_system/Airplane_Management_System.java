@@ -12,5 +12,6 @@ public class Airplane_Management_System {
 
     public static void main(String[] args) {
         System.out.println("5a5645645");
+        System.out.println("5a5645645");
     }
 }
