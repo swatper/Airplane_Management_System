@@ -11,7 +11,7 @@ package cse.airplane_management_system;
 public class Airplane_Management_System {
 
     public static void main(String[] args) {
-        System.out.println("123211231");
-        System.out.println("23222323");4
+        new Login().setVisible(true); // 로그인 창 실행
+        
     }
 }
