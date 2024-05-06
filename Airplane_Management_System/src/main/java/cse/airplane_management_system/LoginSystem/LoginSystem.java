@@ -48,6 +48,8 @@ public class LoginSystem {
         BufferedReader GetPassword = new BufferedReader(new InputStreamReader(System.in));
         String PW = GetPassword.readLine();
         User loginUser = new User(ID, PW, "Test", 0,"Man" , "Homeless");
+        
+        //이터레이터로 찾기
         if(FindUser(loginUser)){
             System.out.println("고객 있음");
         }
