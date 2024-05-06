@@ -12,9 +12,8 @@ public class AirPlane_Management_System_TestDriver {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-       Airplane_Management_System System = new Airplane_Management_System();
+        Airplane_Management_System System = new Airplane_Management_System();
         System.Init();
         System.RunLogin();
-   }
-    
+    }
 }

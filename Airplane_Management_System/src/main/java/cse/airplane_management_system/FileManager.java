@@ -12,9 +12,10 @@ import java.util.ArrayList;
  * @author 박상현
  */
 public class FileManager {
-     //파일 생성 메소드
+    //파일 생성 메소드
+
     public void createDBFile(int typeOfDB, String path) throws IOException {
-        String File_Path = System.getProperty("user.dir")+ "\\src\\main\\java\\cse\\airplane_management_system\\" + path + "\\"; //파일 경로
+        String File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\" + path + "\\"; //파일 경로
         String File_Name;
 
         switch (typeOfDB) {
@@ -46,6 +47,7 @@ public class FileManager {
             Create_File.createNewFile();
         }
     }
+
     //파일 읽어서 StringAttay로 전달하는 메소드
     public ArrayList<String> readDBFile(int typeOfDB) throws IOException {
         String File_Path;
@@ -59,10 +61,8 @@ public class FileManager {
                 break;
 
             //항공기 시스템
-                
             //예약 시스템
-                
-           //보고서 시스템
+            //보고서 시스템
             default:
                 return null;
         }
@@ -77,6 +77,7 @@ public class FileManager {
         //String  배열 넘겨줌
         return readContext;
     }
+
     //객체를 받아 객체의 정보를 파일에 저장하는 메서드
     public void writeDBFile(int typeOfDB, Object DBList) throws IOException {
         String File_Path;
@@ -90,8 +91,8 @@ public class FileManager {
                 ArrayList<User> foodWriter = (ArrayList<User>) DBList;
                 for (User temp : foodWriter) {
                     //객체 정보 직렬화
-                    writeLine.add(temp.getUserID() + ";" + temp.getUserPassword() + ";"  + temp.getUserName()+ ";"  + 
-                                           temp.getUserAge()+ ";"  + temp.getUserGender() +  ";" + temp.getUserAddress()+ "\n");
+                    writeLine.add(temp.getUserID() + ";" + temp.getUserPassword() + ";" + temp.getUserName() + ";"
+                            + temp.getUserAge() + ";" + temp.getUserGender() + ";" + temp.getUserAddress() + "\n");
                 }
                 //파일에 저장
                 for (String writeContext : writeLine) {
@@ -100,12 +101,12 @@ public class FileManager {
                 write.flush();
                 write.close();
                 break;
-             //항공기 시스템
+            //항공기 시스템
             case 1:
                 break;
-             //예약 시스템
-             
-             //보고서 시스템
+            //예약 시스템
+
+            //보고서 시스템
         }
     }
 }
