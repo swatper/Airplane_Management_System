@@ -1,3 +1,1 @@
-¹Ú»óÇö;123;Test;0;Man;Homeless
-ÀÌ½ÂÈ¯;321321;Test;0;Man;Homeless
-±è±¸ºó;12345;±è±¸ºó;23;³²;ºÎ»ê
+Admin; 1234;¹Ú»óÇö;0;Test;TestAddress

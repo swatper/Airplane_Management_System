@@ -22,10 +22,8 @@ public class LoginSystem {
     private LoginSystem() {
     }
 
-    ;
-    
     //객체 전달
-   public static LoginSystem GetSystem() {
+    public static LoginSystem GetSystem() {
         if (loginSystemObject == null) {
             loginSystemObject = new LoginSystem();
         }
@@ -34,6 +32,7 @@ public class LoginSystem {
 
     //파일에 저장되어 있는 User정보String)로 User 객체 생성
     public void Init() throws IOException {
+        LoginUser = null;
         DB = new UserDB();
         fileManager = new FileManager();
         fileManager.createDBFile(0, "LoginSystem");
@@ -47,39 +46,41 @@ public class LoginSystem {
 
     //Swing으로 아이디 비번 입력받고 해당 값이 객체 배열에 있는지 확인
     public void RunSystem() throws IOException {
-        System.out.println("======================================");
-        System.out.println("원하는 메뉴를 선택하세요: 1.로그인  2. 회원가입");
-        BufferedReader GetMenu = new BufferedReader(new InputStreamReader(System.in));
-        int MenuMode = Integer.parseInt(GetMenu.readLine());
-        switch (MenuMode) {
-            case 1:
-                Login();
-                break;
-            case 2:
-                AddAccount();
-                break;
+        while (LoginUser == null) {
+            System.out.println("======================================");
+            System.out.println("원하는 메뉴를 선택하세요: 1.로그인  2. 회원가입");
+            BufferedReader GetMenu = new BufferedReader(new InputStreamReader(System.in));
+            int MenuMode = Integer.parseInt(GetMenu.readLine());
+
+            switch (MenuMode) {
+                //로그인 메서드 호출
+                case 1:
+                    Login();
+                    break;
+                //회원가입 메서드 호출
+                case 2:
+                    AddAccount();
+                    break;
+            }
         }
     }
 
     //로그인 기능
     public void Login() throws IOException {
         System.out.println("======================================");
-        while (true) {
-            System.out.print("아이디: ");
-            BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
-            String ID = GetID.readLine();
-            System.out.print("비밀번호: ");
-            BufferedReader GetPassword = new BufferedReader(new InputStreamReader(System.in));
-            String PW = GetPassword.readLine();
-            User loginUser = new User(ID, PW);
+        System.out.print("아이디: ");
+        BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
+        String ID = GetID.readLine();
+        System.out.print("비밀번호: ");
+        BufferedReader GetPassword = new BufferedReader(new InputStreamReader(System.in));
+        String PW = GetPassword.readLine();
+        User loginUser = new User(ID, PW);
 
-            if (FindUser(loginUser)) {
-                System.out.println("로그인 성공");
-                break;
-            } else {
-                System.out.println("고객 정보 없음");
-                // AddUser(ID, PW, "Test", 0,"Man" , "Homeless");
-            }
+        //입력한 정보가 로그인 DB에 있는지 확인
+        if (FindUser(loginUser)) {
+            System.out.println("로그인 성공");
+        } else {
+            System.out.println("고객 정보 없음");
         }
     }
 
@@ -107,7 +108,6 @@ public class LoginSystem {
         //저장
         AddUser(ID, PW, Name, Age, Gender, Address);
         System.out.println("회원가입 성공!!");
-        Login();
     }
 
     //DB로부터 고객 찾기
