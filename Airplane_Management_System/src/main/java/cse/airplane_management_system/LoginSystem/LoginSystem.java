@@ -11,6 +11,7 @@ import java.util.Iterator;
  * @author 박상현
  */
 public class LoginSystem {
+    public User LoginUser;  //현재 로그인중인 유저를 저장할 변수
     private FileManager fileManager;
     private UserDB DB;
     public Iterator Iter;
@@ -70,6 +71,8 @@ public class LoginSystem {
             //앞에서 받은 User 객체의 ID가 찾으려는 ID와 같은지 확인
             if(Target.getUserID().equals(temp.getUserID())){
                 isUserExist = true;
+                //로그인 유저 저장
+                LoginUser = temp;
                 break;
             }
          }
@@ -103,6 +106,11 @@ public class LoginSystem {
         }
         //변경사항 파일에 저장
         fileManager.writeDBFile(0, DB.GetUserDB());
+    }
+    
+    //로그인 유저를 메인 시스템에 전달
+    public User GetLoginUser(){
+        return LoginUser;
     }
     
 }

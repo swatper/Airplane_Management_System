@@ -1,13 +1,14 @@
 package cse.airplane_management_system;
 
 import cse.airplane_management_system.LoginSystem.LoginSystem;
+import cse.airplane_management_system.LoginSystem.User;
 import java.io.IOException;
 
 /**
  * @author 박상현
  */
 public class Airplane_Management_System {
-    
+    public User LoginUser;
     public LoginSystem loginSystem;
     /*
     public AirplaneSystem  airplaneSystem;
@@ -28,9 +29,10 @@ public class Airplane_Management_System {
     }
     
     //로그인 시스템 실행
-    public void Run() throws IOException{
+    public void RunLogin() throws IOException{
         loginSystem.Init();
         loginSystem.RunSystem();
+        LoginUser = loginSystem.GetLoginUser();
     }
     
 }

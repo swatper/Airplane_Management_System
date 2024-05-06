@@ -14,7 +14,7 @@ public class AirPlane_Management_System_TestDriver {
         // TODO code application logic here
        Airplane_Management_System System = new Airplane_Management_System();
         System.Init();
-        System.Run();
+        System.RunLogin();
    }
     
 }
