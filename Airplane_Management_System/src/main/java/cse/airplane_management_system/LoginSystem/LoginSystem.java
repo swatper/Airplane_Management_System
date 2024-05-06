@@ -1,16 +1,25 @@
 package cse.airplane_management_system.LoginSystem;
 
 import cse.airplane_management_system.FileManager;
-import java.io.BufferedReader;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  * @author 박상현
  */
-public class LoginSystem {
+public class LoginSystem extends JFrame{
     private FileManager fileManager;
     private UserDB DB;
     public Iterator Iter;
@@ -41,21 +50,67 @@ public class LoginSystem {
     }
     //Swing으로 아이디 비번 입력받고 해당 값이 객체 배열에 있는지 확인
     public void RunSystem() throws IOException{
-        System.out.print("아이디: ");
-        BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
-        String ID = GetID.readLine();
-        System.out.print("비밀번호: : ");
-        BufferedReader GetPassword = new BufferedReader(new InputStreamReader(System.in));
-        String PW = GetPassword.readLine();
-        User loginUser = new User(ID, PW, "Test", 0,"Man" , "Homeless");
-        if(FindUser(loginUser)){
+      setTitle("로그인");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container swingContext = getContentPane();
+        swingContext.setLayout(null);
+        
+        JLabel idLabel =new JLabel("ID : ");
+        JLabel pswdLabel =new JLabel("Password : ");
+        JTextField txtID = new JTextField();
+        //로그인 버튼
+        JPasswordField txtPass = new JPasswordField();
+        JButton logBtn =new JButton("로그인");
+        //회원 가입 버튼
+        JPasswordField txtpass = new JPasswordField();
+        JButton AddAccountBtn =new JButton("회원가입");
+        
+        idLabel.setBounds(30, 30,100,30);
+        txtID.setBounds(120, 30,100,30);
+        pswdLabel.setBounds(30, 60,100,30);
+        txtPass.setBounds(120, 60,100,30);
+        logBtn.setBounds(30, 100,100,30);
+        txtpass.setBounds(120, 60,100,30);
+        AddAccountBtn.setBounds(140, 100,100,30);
+        
+        swingContext.add(idLabel);
+        swingContext.add(pswdLabel);
+        swingContext.add(txtID);
+        swingContext.add(txtPass);
+        swingContext.add(logBtn);
+         swingContext.add(txtpass);
+        swingContext.add(AddAccountBtn);
+        
+        logBtn.addActionListener(event -> {
+            User loginTryingUser;
+            
+            //아이디 입력
+            String ID = txtID.getText();
+            //비밀번호 입력
+            String password = txtPass.getText();
+            //비교를 위한 객체 생성
+           loginTryingUser = new User(ID,password); 
+            //비교
+             if(FindUser(loginTryingUser)){
             System.out.println("고객 있음");
-        }
-        else{
-            System.out.println("고객 없어서 추가");
-            AddUser(ID, PW, "Test", 0,"Man" , "Homeless");
-        }
+             }
+             else{
+            System.out.println("고객  없음");
+            }
+        });
+        //회원 가입 버튼
+       AddAccountBtn.addActionListener(event -> {
+           
+           //AddUser();
+        });
+       
+        setVisible(true);
+        setSize(280,180);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+    
     //DB로부터 고객 찾기
     public Boolean FindUser(User Target){
         Boolean isUserExist = false;
@@ -66,7 +121,7 @@ public class LoginSystem {
             User temp = (User) Iter.next();
             System.out.println(temp.getUserID());
             //앞에서 받은 User 객체의 ID가 찾으려는 ID와 같은지 확인
-            if(Target.getUserID().equals(temp.getUserID())){
+            if(Target.getUserID().equals(temp.getUserID()) && Target.getUserPassword().equals(temp.getUserPassword())){
                 isUserExist = true;
                 break;
             }

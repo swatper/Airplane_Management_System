@@ -25,6 +25,10 @@ public class User {
         this.gender = gender;
         this.address = address;
     }
+    public User(String id, String password){
+        this.id = id;
+        this.password = password;
+    }
     //get함수들
     public String getUserID(){
         return id;
