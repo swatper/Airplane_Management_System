@@ -44,7 +44,7 @@ public class LoginSystem {
         }
     }
 
-    //Swing으로 아이디 비번 입력받고 해당 값이 객체 배열에 있는지 확인
+    //Swing으로 아이디 비번 입력받고 해당 값이 객체 배열에 있는지 확인 (스윙쓰면 이 부분 불필요)
     public void RunSystem() throws IOException {
         while (LoginUser == null) {
             System.out.println("======================================");
@@ -65,7 +65,7 @@ public class LoginSystem {
         }
     }
 
-    //로그인 기능
+    //로그인 기능 (스윙 필요)
     public void Login() throws IOException {
         System.out.println("======================================");
         System.out.print("아이디: ");
@@ -84,7 +84,7 @@ public class LoginSystem {
         }
     }
 
-    //회원가입 기능
+    //회원가입 기능(스윙 필요)
     public void AddAccount() throws IOException {
         System.out.println("======================================");
         System.out.print("아이디: ");
