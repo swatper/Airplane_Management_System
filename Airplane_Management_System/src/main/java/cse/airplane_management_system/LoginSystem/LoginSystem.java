@@ -148,6 +148,7 @@ public class LoginSystem {
             System.out.println(temp.getUserID());
             //앞에서 받은 User 객체의 ID가 찾으려는 ID와 같은지 확인
             if (temp.getUserID().equals(modifyUser.getUserID())) {
+                //이름, 나이, 주소 수정
                 temp.SetName(modifyUser.getUserName());
                 temp.SetAge(Integer.parseInt(modifyUser.getUserAge()));
                 temp.SetAddress(modifyUser.getUserAddress());

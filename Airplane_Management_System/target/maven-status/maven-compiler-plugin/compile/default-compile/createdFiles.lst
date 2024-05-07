@@ -1,4 +1,5 @@
 cse\airplane_management_system\LoginSystem\LoginSystem.class
+cse\airplane_management_system\AirPlaneSystem\AirPlane.class
 cse\airplane_management_system\LoginSystem\ObjectDB.class
 cse\airplane_management_system\LoginSystem\UserDB.class
 cse\airplane_management_system\LoginSystem\User.class
