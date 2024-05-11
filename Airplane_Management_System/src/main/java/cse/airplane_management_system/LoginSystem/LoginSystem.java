@@ -30,7 +30,7 @@ public class LoginSystem {
         return loginSystemObject;
     }
 
-    //파일에 저장되어 있는 User정보String)로 User 객체 생성
+    //파일에 저장되어 있는 User정보String)로 User 객체 생성(시스템 초기화 작업)
     public void Init() throws IOException {
         LoginUser = null;
         DB = new UserDB();
