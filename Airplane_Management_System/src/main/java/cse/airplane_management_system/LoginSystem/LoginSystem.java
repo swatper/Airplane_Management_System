@@ -17,6 +17,7 @@ public class LoginSystem {
     private UserDB DB;
     public Iterator Iter;
     public static LoginSystem loginSystemObject;
+    public int targetUserIndex; //Iterator의 반복 횟수를 이용하여 DB의 사용자 Index를 얻을 변수
 
     //생성자(싱글톤 패턴)
     private LoginSystem() {
@@ -162,9 +163,9 @@ public class LoginSystem {
     }
     
     // 고객 정보 삭제 메서드
-    public void DeleteUser(User deleteUser) {
+    /*public void DeleteUser(User deleteUser) {
         userDBList.remove(deleteUser);
-    }
+    }*/
 
     //고객 정보 수정(이터레이터 패턴)
     public void ModifyUser(String userId, User modifyUser) throws IOException {
@@ -238,7 +239,7 @@ public class LoginSystem {
 
         if (deleteUser != null) { // 삭제할 고객 정보가 존재하는 경우
             // 고객 정보 삭제
-            DB.DeleteUser(deleteUser);
+            DB.DeleteUser(targetUserIndex);
             
             // 파일에 변경사항 저장
             fileManager.writeDBFile(0, DB.GetUserDB());
@@ -250,12 +251,14 @@ public class LoginSystem {
     }
         // 아이디를 이용하여 해당 고객 정보를 찾는 메서드
     public User FindUserByID(String userID) {
+        targetUserIndex = 0;
         Iter = DB.CreatIterator();
         while (Iter.hasNext()) {
             User temp = (User) Iter.next();
             if (temp.getUserID().equals(userID)) {
                 return temp;
             }
+            targetUserIndex++;
         }
         return null;
     }

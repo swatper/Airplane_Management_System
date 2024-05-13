@@ -1,2 +1,1 @@
-Admin; 1234;박상현;0;Test;TestAddress
-123;123;123;123;ㅁㄴㅁㄴ;asas
+Admin; 1234;김이박;100;Test;서울
