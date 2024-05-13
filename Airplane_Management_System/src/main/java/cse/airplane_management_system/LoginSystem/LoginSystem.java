@@ -48,7 +48,7 @@ public class LoginSystem {
     public void RunSystem() throws IOException {
         while (LoginUser == null) {
             System.out.println("======================================");
-            System.out.println("원하는 메뉴를 선택하세요: 1.로그인  2. 회원가입");
+            System.out.println("원하는 메뉴를 선택하세요: 1.로그인  2. 회원가입 3. 고객정보 수정 및 삭제");
             BufferedReader GetMenu = new BufferedReader(new InputStreamReader(System.in));
             int MenuMode = Integer.parseInt(GetMenu.readLine());
 
@@ -60,6 +60,9 @@ public class LoginSystem {
                 //회원가입 메서드 호출
                 case 2:
                     AddAccount();
+                    break;
+                case 3:
+                    ModifyOrDeleteUserInfo();
                     break;
             }
         }
@@ -109,6 +112,28 @@ public class LoginSystem {
         AddUser(ID, PW, Name, Age, Gender, Address);
         System.out.println("회원가입 성공!!");
     }
+    
+    // 새로운 메서드 추가: 고객 정보 수정 및 삭제 메뉴
+    public void ModifyOrDeleteUserInfo() throws IOException {
+        System.out.println("======================================");
+        System.out.println("원하는 작업을 선택하세요: 1.고객 정보 수정  2.고객 정보 삭제");
+        BufferedReader GetMenu = new BufferedReader(new InputStreamReader(System.in));
+        int MenuMode = Integer.parseInt(GetMenu.readLine());
+
+        switch (MenuMode) {
+            case 1:
+                // 고객 정보 수정 메서드 호출
+                ModifyUserInfo();
+                break;
+            case 2:
+                // 고객 정보 삭제 메서드 호출
+                DeleteUserInfo();
+                break;
+            default:
+                System.out.println("잘못된 선택입니다.");
+                break;
+    }
+}
 
     //DB로부터 고객 찾기
     public Boolean FindUser(User Target) {
@@ -135,9 +160,14 @@ public class LoginSystem {
         DB.AddUser(Temp);
         fileManager.writeDBFile(0, DB.GetUserDB());
     }
+    
+    // 고객 정보 삭제 메서드
+    public void DeleteUser(User deleteUser) {
+        userDBList.remove(deleteUser);
+    }
 
     //고객 정보 수정(이터레이터 패턴)
-    public void ModifyUser(User modifyUser) throws IOException {
+    public void ModifyUser(String userId, User modifyUser) throws IOException {
         //Iterator 객체 생성
         Iter = DB.CreatIterator();
 
@@ -147,7 +177,7 @@ public class LoginSystem {
             User temp = (User) Iter.next();
             System.out.println(temp.getUserID());
             //앞에서 받은 User 객체의 ID가 찾으려는 ID와 같은지 확인
-            if (temp.getUserID().equals(modifyUser.getUserID())) {
+            if (temp.getUserID().equals(userId)) {
                 //이름, 나이, 주소 수정
                 temp.SetName(modifyUser.getUserName());
                 temp.SetAge(Integer.parseInt(modifyUser.getUserAge()));
@@ -158,7 +188,78 @@ public class LoginSystem {
         //변경사항 파일에 저장
         fileManager.writeDBFile(0, DB.GetUserDB());
     }
+    
+    // 고객 정보 수정 메서드
+    public void ModifyUserInfo() throws IOException {
+        System.out.println("======================================");
+        System.out.print("수정할 고객의 아이디를 입력하세요: ");
+        BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
+        String userID = GetID.readLine();
+    
+        // 해당 아이디를 가진 고객 정보 객체 찾기
+        User modifyUser = FindUserByID(userID);
+    
+        if (modifyUser != null) { // 수정할 고객 정보가 존재하는 경우
+            System.out.println("수정할 정보를 입력하세요:");
+            // 새로운 정보 입력
+            System.out.print("이름: ");
+            BufferedReader GetName = new BufferedReader(new InputStreamReader(System.in));
+            String newName = GetName.readLine();
+            System.out.print("나이: ");
+            BufferedReader GetAge = new BufferedReader(new InputStreamReader(System.in));
+            int newAge = Integer.parseInt(GetAge.readLine());
+            System.out.print("주소: ");
+            BufferedReader GetAddress = new BufferedReader(new InputStreamReader(System.in));
+            String newAddress = GetAddress.readLine();
 
+            // 수정할 정보를 새로운 값으로 업데이트
+            modifyUser.SetName(newName);
+            modifyUser.SetAge(newAge);
+            modifyUser.SetAddress(newAddress);
+
+            // 파일에 변경사항 저장
+            fileManager.writeDBFile(0, DB.GetUserDB());
+            System.out.println("고객 정보가 성공적으로 수정되었습니다.");
+            }
+            else { // 수정할 고객 정보가 존재하지 않는 경우
+            System.out.println("해당 아이디를 가진 고객 정보가 없습니다.");
+        }
+    }
+    
+    // 고객 정보 삭제 메서드
+    public void DeleteUserInfo() throws IOException {
+        System.out.println("======================================");
+        System.out.print("삭제할 고객의 아이디를 입력하세요: ");
+        BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
+        String userID = GetID.readLine();
+
+        // 해당 아이디를 가진 고객 정보 객체 찾기
+        User deleteUser = FindUserByID(userID);
+
+        if (deleteUser != null) { // 삭제할 고객 정보가 존재하는 경우
+            // 고객 정보 삭제
+            DB.DeleteUser(deleteUser);
+            
+            // 파일에 변경사항 저장
+            fileManager.writeDBFile(0, DB.GetUserDB());
+            System.out.println("고객 정보가 성공적으로 삭제되었습니다.");
+            } 
+            else { // 삭제할 고객 정보가 존재하지 않는 경우
+            System.out.println("해당 아이디를 가진 고객 정보가 없습니다.");
+        }
+    }
+        // 아이디를 이용하여 해당 고객 정보를 찾는 메서드
+    public User FindUserByID(String userID) {
+        Iter = DB.CreatIterator();
+        while (Iter.hasNext()) {
+            User temp = (User) Iter.next();
+            if (temp.getUserID().equals(userID)) {
+                return temp;
+            }
+        }
+        return null;
+    }
+    
     //로그인 유저를 메인 시스템에 전달
     public User GetLoginUser() {
         return LoginUser;
