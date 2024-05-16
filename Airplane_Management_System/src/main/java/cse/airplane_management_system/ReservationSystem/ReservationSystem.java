@@ -36,14 +36,13 @@ public class ReservationSystem {
    }
    
     //시스템 초기화 작업
-    public void Init(User LoginUser) throws IOException{
-        this.loginUser = LoginUser;
+    public void Init() throws IOException{
         DB = new ReservationDB();
         fileManager = new FileManager();
         fileManager.createDBFile(2, "ReservationSystem");
         
         //파일에 있는 내용으로 객체 만들기
-        ArrayList<String> readContext = fileManager.readDBFile(0);
+        ArrayList<String> readContext = fileManager.readDBFile(2);
          for (String temp : readContext) {
              Reservation tempRes = new Reservation(temp.split(";")[0],temp.split(";")[1],temp.split(";")[2],
                      temp.split(";")[3], temp.split(";")[4]);
@@ -83,7 +82,10 @@ public class ReservationSystem {
             if (loginUser.getUserID().equals(temp.GetBookedUserID())) {
                 isExist = true;
                 //항공편, 이름, 전화번호, 좌석 번호 출력
-                System.out.println(temp.GetBookedAirline() +loginUser.getUserName() +temp.GetPhoneNumber() + temp.GetBookedSeatNum());
+                System.out.println("항곤편: "+temp.GetBookedAirline() +"  "+
+                        "예약자: "+loginUser.getUserName() +"  "+
+                        "전화번호: "+temp.GetPhoneNumber() +"  "+ 
+                        "좌석번호: "+temp.GetBookedSeatNum());
             }
         }
         if (!isExist) {
@@ -124,14 +126,14 @@ public class ReservationSystem {
         System.out.print("전화번호를 입력해주세요: ");
         BufferedReader getPhoneNum = new BufferedReader(new InputStreamReader(System.in));
         String PhoneNum = getPhoneNum.readLine();
-        Reservation Res = new Reservation(airlineName, loginUser.getUserID(), loginUser.getUserName(), PhoneNum, SeatNum);
         //파일에 저장
-        AddReservation(Res);
+        AddReservation(PhoneNum, SeatNum);
         System.out.println("예약 완료 ");
     }
     
     //예약 내역 파일에 추가
-    public void AddReservation(Reservation NewRes) throws IOException{
+    public void AddReservation(String PhoneNum, String SeatNum) throws IOException{
+        Reservation NewRes = new Reservation(airlineName, loginUser.getUserID(), loginUser.getUserName(), PhoneNum, SeatNum);
         DB.AddRes(NewRes);
         fileManager.writeDBFile(2, DB.GetReservationDB());
     }

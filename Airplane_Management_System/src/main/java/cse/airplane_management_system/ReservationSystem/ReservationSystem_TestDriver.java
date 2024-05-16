@@ -15,7 +15,7 @@ public class ReservationSystem_TestDriver {
         //관리자로 로그인
         User LoginUser = new User("Admin", "1234", "실험",10 ,"Test", "?");
         ReservationSystem ReSystem = ReservationSystem.GetSystem(LoginUser);
-        ReSystem.Init(LoginUser);
+        ReSystem.Init();
         ReSystem.RunSystem();
     }
 }

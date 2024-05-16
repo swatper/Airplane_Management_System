@@ -21,7 +21,7 @@ public class ReservationDBIterator implements Iterator<Reservation>{
 
     @Override
     public Reservation next() {
-        Reservation targetRes = ResDB.GetUser(ResIndex);
+        Reservation targetRes = ResDB.GetReservation(ResIndex);
         ResIndex++;
         return targetRes;
     }

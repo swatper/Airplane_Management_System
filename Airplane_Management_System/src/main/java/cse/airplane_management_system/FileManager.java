@@ -60,13 +60,17 @@ public class FileManager {
             case 0:
                 File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\LoginSystem\\User.txt";
                 break;
-
             //항공기 시스템
+            case 1:
+                File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
+                break;
             //예약 시스템
             case 2:
                 File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\ReservationSystem\\Reservation.txt";
+                break;
             //보고서 시스템
             default:
+                System.out.println("파일 읽기 타임 잘못됨");
                 return null;
         }
         //파일 내용 읽기
@@ -115,7 +119,7 @@ public class FileManager {
                 for (Reservation temp : reservationWriter) {
                     //객체 정보 직렬화
                     writeLine.add(temp.GetBookedAirline() + ";" + temp.GetBookedUserID() + ";"+ temp.GetBookedUserName() + ";" + 
-                            temp.GetPhoneNumber() + ";" + temp.GetBookedSeatNum());
+                            temp.GetPhoneNumber() + ";" + temp.GetBookedSeatNum()+ "\n");
                 }
                 //파일에 저장
                 for (String writeContext : writeLine) {

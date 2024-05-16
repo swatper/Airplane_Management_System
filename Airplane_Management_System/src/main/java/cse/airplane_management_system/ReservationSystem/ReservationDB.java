@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * @author 박상현
  */
-class ReservationDB implements ObjectDB{
+class ReservationDB implements ResObjectDB{
     
     private ArrayList<Reservation> ReservationDBList;
     private int dbSize;         //DB의 크기 
@@ -28,7 +28,7 @@ class ReservationDB implements ObjectDB{
     }
 
     //DB에 있는 객체 찾아서 전달
-    public Reservation GetUser(int Index) {
+    public Reservation GetReservation(int Index) {
         Reservation TargetRes = ReservationDBList.get(Index);
         return TargetRes;
     }

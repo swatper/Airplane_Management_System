@@ -1,1 +1,2 @@
-qwer;1234;test;20;남AsiAir;Admin;실험;2;2
+KorAir;Admin;실험;123456;12
+KorAir;Admin;실험;9999;20
