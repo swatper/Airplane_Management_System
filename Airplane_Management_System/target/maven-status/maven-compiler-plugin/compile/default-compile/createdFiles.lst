@@ -1,3 +1,4 @@
+cse\airplane_management_system\ReservationSystem\Reservation.class
 cse\airplane_management_system\LoginSystem\LoginSystem.class
 cse\airplane_management_system\AirPlaneSystem\AirPlane.class
 cse\airplane_management_system\LoginSystem\ObjectDB.class
@@ -5,5 +6,9 @@ cse\airplane_management_system\LoginSystem\UserDB.class
 cse\airplane_management_system\LoginSystem\User.class
 cse\airplane_management_system\FileManager.class
 cse\airplane_management_system\LoginSystem\UserDBIterator.class
+cse\airplane_management_system\ReservationSystem\ReservationDB.class
+cse\airplane_management_system\ReservationSystem\ObjectDB.class
+cse\airplane_management_system\ReservationSystem\ReservationDBIterator.class
 cse\airplane_management_system\AirPlane_Management_System_TestDriver.class
 cse\airplane_management_system\LoginSystem\LoginTestDriver.class
+cse\airplane_management_system\ReservationSystem\ReservationSystem_TestDriver.class

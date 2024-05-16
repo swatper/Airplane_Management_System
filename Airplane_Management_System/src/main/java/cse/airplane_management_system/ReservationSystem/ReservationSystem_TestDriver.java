@@ -12,11 +12,10 @@ public class ReservationSystem_TestDriver {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        User LoginUser = new User("Admin", "1234");
-        ReservationSystem ReSystem = ReservationSystem.reservationSystem();
+        //관리자로 로그인
+        User LoginUser = new User("Admin", "1234", "실험",10 ,"Test", "?");
+        ReservationSystem ReSystem = ReservationSystem.GetSystem(LoginUser);
         ReSystem.Init(LoginUser);
         ReSystem.RunSystem();
-        
     }
-    
 }

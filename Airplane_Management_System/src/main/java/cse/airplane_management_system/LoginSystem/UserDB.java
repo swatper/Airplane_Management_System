@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- *
  * @author 박상현
  */
 class UserDB implements ObjectDB {
 
     private ArrayList<User> userDBList;
     private int dbSize;         //DB의 크기
+    
     //생성자
-
     public UserDB() {
         userDBList = new ArrayList<>();
     }
