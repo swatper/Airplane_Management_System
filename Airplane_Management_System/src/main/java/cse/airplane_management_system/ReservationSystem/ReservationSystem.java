@@ -11,14 +11,21 @@ import java.util.Iterator;
 /**
  * @author 박상현
  */
+
+//Command Pattern Client
 public class ReservationSystem {
     public User loginUser;
     //public Airplane ReservAirplane;
     public FileManager fileManager;
     public static ReservationSystem reservationSystem;
     public ReservationDB DB;
-    public ArrayList<Boolean> Seats;
     public Iterator Iter;
+    //파일 쓰는 기능
+    public FileWriter fWriter;
+    //파일 쓰기 Command
+    public WriteFileCommand WriteCommand;
+    //Command 패턴의 리모컨 
+    public FileController fController;
 
     
     public String airlineName;
@@ -38,6 +45,9 @@ public class ReservationSystem {
     //시스템 초기화 작업
     public void Init() throws IOException{
         DB = new ReservationDB();
+        //리모컨 객체 생성
+        fController = new FileController();
+        
         fileManager = new FileManager();
         fileManager.createDBFile(2, "ReservationSystem");
         
@@ -132,10 +142,20 @@ public class ReservationSystem {
     }
     
     //예약 내역 파일에 추가
-    public void AddReservation(String PhoneNum, String SeatNum) throws IOException{
+    public void AddReservation(String PhoneNum, String SeatNum){
         Reservation NewRes = new Reservation(airlineName, loginUser.getUserID(), loginUser.getUserName(), PhoneNum, SeatNum);
+        //DB에 추가
         DB.AddRes(NewRes);
-        fileManager.writeDBFile(2, DB.GetReservationDB());
+        
+        //------------------------Command 패턴 사용
+        //파일 쓰는 기능 생성
+        fWriter = new FileWriter(DB);
+        //버튼 생성
+        WriteCommand = new WriteFileCommand(fWriter);
+        //리모컨에 버튼 추가
+        fController.SetCommand(WriteCommand);
+        //버튼 누르기(파일 쓰기)
+        fController.RunCommand();
     }
     
 }
