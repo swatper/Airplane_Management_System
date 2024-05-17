@@ -5,11 +5,11 @@ package cse.airplane_management_system.ReservationSystem;
  * @author 박상현
  */
 //Concrete Command
-public class WriteFileCommand implements FileCommand{
+public class FileWriteCommand implements FileCommand{
     private FileWriter fileWriter;
 
     //생성자
-    public WriteFileCommand(FileWriter Writer){
+    public FileWriteCommand(FileWriter Writer){
         this.fileWriter = Writer;
     }
     

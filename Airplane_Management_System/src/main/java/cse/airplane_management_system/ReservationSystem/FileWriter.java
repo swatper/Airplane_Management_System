@@ -18,7 +18,7 @@ public class FileWriter{
         WriteFile = new FileManager();
         this.DB = InputDB;
     }
-    //파일 쓰는 작업(버튼)
+    //파일 쓰는 작업(버튼 기능)
     public void WriteFile() {
         try {
             WriteFile.writeDBFile(2, DB.GetReservationDB());

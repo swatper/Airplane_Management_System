@@ -23,7 +23,7 @@ public class ReservationSystem {
     //파일 쓰는 기능
     public FileWriter fWriter;
     //파일 쓰기 Command
-    public WriteFileCommand WriteCommand;
+    public FileWriteCommand WriteCommand;
     //Command 패턴의 리모컨 
     public FileController fController;
 
@@ -151,7 +151,7 @@ public class ReservationSystem {
         //파일 쓰는 기능 생성
         fWriter = new FileWriter(DB);
         //버튼 생성
-        WriteCommand = new WriteFileCommand(fWriter);
+        WriteCommand = new FileWriteCommand(fWriter);
         //리모컨에 버튼 추가
         fController.SetCommand(WriteCommand);
         //버튼 누르기(파일 쓰기)

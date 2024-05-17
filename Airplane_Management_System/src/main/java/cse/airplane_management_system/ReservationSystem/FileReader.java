@@ -3,6 +3,7 @@ package cse.airplane_management_system.ReservationSystem;
 import cse.airplane_management_system.FileManager;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author 박상현
@@ -17,7 +18,8 @@ public class FileReader {
         ReadFile = new FileManager();
     };
     
-    public void ReadFile() throws IOException{
+    //파일 읽는 작업(버튼 기능)
+    public void ReadFile() throws IOException {
         FileInfo = ReadFile.readDBFile(2);
     }
     
