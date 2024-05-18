@@ -82,12 +82,19 @@ public class LoginSystem {
 
         //입력한 정보가 로그인 DB에 있는지 확인
         if (FindUser(loginUser)) {
-            System.out.println("로그인 성공");
+            if ("Admin".equals(loginUser.getUserID())) {
+                LoginUser.setAdmin(true);
+                System.out.println("관리자 로그인 성공");
+            } else {
+                System.out.println("로그인 성공");
+            }
         } else {
             System.out.println("고객 정보 없음");
         }
     }
 
+    
+    
     //회원가입 기능(스윙 필요)
     public void AddAccount() throws IOException {
         System.out.println("======================================");
@@ -117,7 +124,7 @@ public class LoginSystem {
     // 새로운 메서드 추가: 고객 정보 수정 및 삭제 메뉴
     public void ModifyOrDeleteUserInfo() throws IOException {
         System.out.println("======================================");
-        System.out.println("원하는 작업을 선택하세요: 1.고객 정보 수정  2.고객 정보 삭제");
+        System.out.println("원하는 작업을 선택하세요: 1.고객 정보 수정  2.고객 정보 삭제 3. 고객 정보 조회");
         BufferedReader GetMenu = new BufferedReader(new InputStreamReader(System.in));
         int MenuMode = Integer.parseInt(GetMenu.readLine());
 
@@ -129,6 +136,17 @@ public class LoginSystem {
             case 2:
                 // 고객 정보 삭제 메서드 호출
                 DeleteUserInfo();
+                break;
+            case 3:
+                // 고객 정보 조회 메서드 호출
+               System.out.println("관리자 로그인이 필요합니다.");
+                Login();
+                if (LoginUser != null && LoginUser.isAdmin()) {
+                    System.out.println("관리자 로그인 성공");
+                    ViewUserInfo();
+                } else {
+                    System.out.println("관리자 권한이 없습니다.");
+                }
                 break;
             default:
                 System.out.println("잘못된 선택입니다.");
@@ -261,6 +279,16 @@ public class LoginSystem {
             targetUserIndex++;
         }
         return null;
+    }   
+    // 모든 고객 정보 조회 메서드 (관리자 전용)
+    public void ViewUserInfo() throws IOException {
+        System.out.println("======================================");
+        System.out.print("모든 고객 정보: ");
+        Iter = DB.CreatIterator();
+        while (Iter.hasNext()) {
+            User user = (User) Iter.next();
+            System.out.println(user.getFormattedUserInfo());
+        }
     }
     
     //로그인 유저를 메인 시스템에 전달
