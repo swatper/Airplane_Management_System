@@ -3,15 +3,16 @@ package cse.airplane_management_system.ReservationSystem;
 /**
  * @author 박상현
  */
+
 //Command Pattern  Invoker (리모컨)
-public class FileController {
-    private FileCommand Command; //Command 연관
+public class CommandController {
+    private Command Command; //Command 연관
     
     //생성자
-    public FileController(){}
+    public CommandController(){}
     
     //명령어 타입(?) 설정-> 버튼 설정
-    public void SetCommand(FileCommand Command){
+    public void SetCommand(Command Command){
         this.Command =Command;
     }
     

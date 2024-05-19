@@ -21,11 +21,15 @@ public class ReservationSystem {
     public ReservationDB DB;
     public Iterator Iter;
     //파일 쓰는 기능
-    public FileWriter fWriter;
-    //파일 쓰기 Command
-    public FileWriteCommand WriteCommand;
+    public CommandWriter fWriter;
+    //찾기 기능
+    public CommandResearcher Researcher;
+    //쓰기 Command
+    public CommandWrite WriteCommand;
+    //찾기 Command
+    public CommandResearch ResearchCommand;
     //Command 패턴의 리모컨 
-    public FileController fController;
+    public CommandController Controller;
 
     
     public String airlineName;
@@ -46,7 +50,7 @@ public class ReservationSystem {
     public void Init() throws IOException{
         DB = new ReservationDB();
         //리모컨 객체 생성
-        fController = new FileController();
+        Controller = new CommandController();
         
         fileManager = new FileManager();
         fileManager.createDBFile(2, "ReservationSystem");
@@ -83,6 +87,13 @@ public class ReservationSystem {
     
     //로그인 고객의 이름을 이용해서 예약 내역 조회
     public void Lookup(){
+        //------------------------Command 패턴 사용
+        Researcher = new CommandResearcher(loginUser.getUserID(), DB);
+        ResearchCommand = new CommandResearch(Researcher);
+        Controller.SetCommand(ResearchCommand);
+        Controller.RunCommand();
+        
+        /* //기존 코드
         Boolean isExist = false;
         Iter = DB.CreatIterator();
         while (Iter.hasNext()) {
@@ -101,6 +112,7 @@ public class ReservationSystem {
         if (!isExist) {
             System.out.println("예약 내역이 없습니다. ");
         }
+        */
         
     }
     
@@ -149,13 +161,14 @@ public class ReservationSystem {
         
         //------------------------Command 패턴 사용
         //파일 쓰는 기능 생성
-        fWriter = new FileWriter(DB);
+        fWriter = new CommandWriter(DB);
         //버튼 생성
-        WriteCommand = new FileWriteCommand(fWriter);
+        WriteCommand = new CommandWrite(fWriter);
         //리모컨에 버튼 추가
-        fController.SetCommand(WriteCommand);
+        Controller.SetCommand(WriteCommand);
         //버튼 누르기(파일 쓰기)
-        fController.RunCommand();
+        Controller.RunCommand();
+        
     }
     
 }

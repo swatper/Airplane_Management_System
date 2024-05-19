@@ -8,13 +8,14 @@ import java.util.logging.Logger;
 /**
  * @author 박상현
  */
+
 //Receiver
-public class FileWriter{
+public class CommandWriter{
     public FileManager WriteFile;
     public ReservationDB DB;
 
     
-    public FileWriter(ReservationDB InputDB){
+    public CommandWriter(ReservationDB InputDB){
         WriteFile = new FileManager();
         this.DB = InputDB;
     }
@@ -23,7 +24,7 @@ public class FileWriter{
         try {
             WriteFile.writeDBFile(2, DB.GetReservationDB());
         } catch (IOException ex) {
-            Logger.getLogger(FileWriter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CommandWriter.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("DB의 내용을 파일에 적습니다. ");
     }
