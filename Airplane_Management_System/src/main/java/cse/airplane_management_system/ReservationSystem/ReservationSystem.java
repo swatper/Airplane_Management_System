@@ -15,24 +15,20 @@ import java.util.Iterator;
 //Command Pattern Client
 public class ReservationSystem {
     public User loginUser;
+    public String airlineName;
     //public Airplane ReservAirplane;
     public FileManager fileManager;
     public static ReservationSystem reservationSystem;
     public ReservationDB DB;
-    public Iterator Iter;
-    //파일 쓰는 기능
-    public CommandWriter fWriter;
-    //찾기 기능
-    public CommandResearcher Researcher;
-    //쓰기 Command
-    public CommandWrite WriteCommand;
-    //찾기 Command
+    //------------Command 패턴 객체
+    //기능(버튼의 기능)
+    public CommandWriter Writer;                  //파일 쓰기
+    public CommandResearcher Researcher;//예약 조회
+    //버튼
+    public CommandWrite WriteCommand; 
     public CommandResearch ResearchCommand;
     //Command 패턴의 리모컨 
     public CommandController Controller;
-
-    
-    public String airlineName;
     
     //생성자(싱글턴 패턴)
     private ReservationSystem(User LoginUser){
@@ -92,28 +88,6 @@ public class ReservationSystem {
         ResearchCommand = new CommandResearch(Researcher);
         Controller.SetCommand(ResearchCommand);
         Controller.RunCommand();
-        
-        /* //기존 코드
-        Boolean isExist = false;
-        Iter = DB.CreatIterator();
-        while (Iter.hasNext()) {
-            //특정 위치에 있는 객체 Iterato로 받기
-            Reservation temp = (Reservation) Iter.next();
-            //로그인 유저의 ID와 예약 내역의 ID를 비교하여 찾기
-            if (loginUser.getUserID().equals(temp.GetBookedUserID())) {
-                isExist = true;
-                //항공편, 이름, 전화번호, 좌석 번호 출력
-                System.out.println("항곤편: "+temp.GetBookedAirline() +"  "+
-                        "예약자: "+loginUser.getUserName() +"  "+
-                        "전화번호: "+temp.GetPhoneNumber() +"  "+ 
-                        "좌석번호: "+temp.GetBookedSeatNum());
-            }
-        }
-        if (!isExist) {
-            System.out.println("예약 내역이 없습니다. ");
-        }
-        */
-        
     }
     
     //예약 하기
@@ -161,9 +135,9 @@ public class ReservationSystem {
         
         //------------------------Command 패턴 사용
         //파일 쓰는 기능 생성
-        fWriter = new CommandWriter(DB);
+        Writer = new CommandWriter(DB);
         //버튼 생성
-        WriteCommand = new CommandWrite(fWriter);
+        WriteCommand = new CommandWrite(Writer);
         //리모컨에 버튼 추가
         Controller.SetCommand(WriteCommand);
         //버튼 누르기(파일 쓰기)
