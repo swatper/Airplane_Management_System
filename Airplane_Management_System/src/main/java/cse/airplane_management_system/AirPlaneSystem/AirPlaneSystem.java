@@ -94,7 +94,7 @@ public class AirPlaneSystem {
         }
     }
 
-    public static void main(String[] args) {
+    public void RunSystem() throws IOException {
         AirPlaneSystem system = new AirPlaneSystem();
         // 파일에서 항공편 정보 읽어오기
         system.loadFromFile();
