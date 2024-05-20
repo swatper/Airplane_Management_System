@@ -4,6 +4,8 @@
  */
 package cse.airplane_management_system.AirPlaneSystem;
 
+import cse.airplane_management_system.AirPlaneSystem.AirPlaneSystem;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -32,5 +34,22 @@ public class AirPlaneSyetem_TestDriver {
 
         // 삭제된 항공편 조회
         system.printAllAirPlanes();
+        
+        try {
+            system.RunSystem();
+        } catch (IOException e) {
+            System.err.println("파일 처리 중 오류 발생: " + e.getMessage());
+        }
+    }   
     }
-}
+
+    //실행 코드 메인에 넣으면 됨
+  /*
+        try {
+            AirPlaneSystem system = new AirPlaneSystem();
+            system.RunSystem();
+        } catch (IOException e) {
+            System.err.println("파일 처리 중 오류 발생: " + e.getMessage());
+        }
+    }   
+*/
