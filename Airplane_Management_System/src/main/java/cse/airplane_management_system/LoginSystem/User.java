@@ -16,6 +16,7 @@ public class User {
     private int age;            //나이
     private String gender;    //성별
     private String address;  //주소
+    private boolean isAdmin; //관리자
 
     //생성자
     public User(String id, String password, String name, int age, String gender, String address) {
@@ -25,6 +26,7 @@ public class User {
         this.age = age;
         this.gender = gender;
         this.address = address;
+        this.isAdmin = false;
     }
 
     //아이디 비번만 입력받는 생성자(사용자 입력이랑 DB에 있는 객체 비교용)
@@ -59,6 +61,10 @@ public class User {
         return strAge;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+    
     //User객체 속성값 수정
     public void SetName(String newName) {
         this.name = newName;
@@ -71,5 +77,28 @@ public class User {
     public void SetAddress(String newAddress) {
         this.address = newAddress;
     }
-
+    
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+    
+    // 사용자 정보를 포맷팅하여 반환하는 메서드 추가
+    public String getFormattedUserInfo() {
+        return String.format("\n\n%s\n아이디 = %s ㅣ 패스워드 = %s ㅣ 나이 = %s ㅣ 성별 = %s ㅣ 주소 = %s", 
+            name, id, password,gender, age, address);
+    }
+    
+    @Override
+    public String toString() {
+        return "User{" +
+                "userID='" + id + '\'' +
+                ", userPassword='" + password + '\'' +
+                ", userName='" + name + '\'' +
+                ", userAge=" + gender +
+                ", userGender='" + age + '\'' +
+                ", userAddress='" + address + '\'' +
+                ", isAdmin=" + isAdmin +
+                '}';
+    }
+    
 }

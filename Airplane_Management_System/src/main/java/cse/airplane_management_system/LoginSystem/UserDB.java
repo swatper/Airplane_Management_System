@@ -42,4 +42,17 @@ class UserDB implements ObjectDB {
     public Iterator CreatIterator() {
         return new UserDBIterator(this);
     }
+    
+    // UserDB에서 User 객체 삭제
+    public void DeleteUser(int index) {
+    userDBList.remove(index);
+    dbSize--; // 데이터베이스 크기 감소
+}
+
+    // UserDB에서 User 객체 수정
+    public void UpdateUser(int index, User updatedUser) {
+        userDBList.set(index, updatedUser);
+    }
+    
+    
 }

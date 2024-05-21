@@ -28,5 +28,11 @@ public class UserDBIterator implements Iterator<User> {
         userIndex++;
         return targetUser;
     }
-
+    
+   @Override
+    public void remove() {
+        userDB.DeleteUser(userIndex - 1); // 현재 인덱스의 이전 인덱스의 유저 삭제
+        userIndex--; // 인덱스 감소
+    }
+    
 }
