@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author kb010
  */
 public class AirPlaneSyetem_TestDriver {
-      public static void main(String[] args) {
+      public static void main(String[] args) throws IOException {
         AirPlaneSystem system = new AirPlaneSystem();
 
         // 항공편 추가
@@ -35,11 +35,11 @@ public class AirPlaneSyetem_TestDriver {
         // 삭제된 항공편 조회
         system.printAllAirPlanes();
         
-        try {
+        /*try {
             system.RunSystem();
         } catch (IOException e) {
             System.err.println("파일 처리 중 오류 발생: " + e.getMessage());
-        }
+        }*/
     }   
     }
 

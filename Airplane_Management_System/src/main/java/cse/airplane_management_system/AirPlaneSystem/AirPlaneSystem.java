@@ -1,7 +1,7 @@
 package cse.airplane_management_system.AirPlaneSystem;
 
-import cse.airplane_management_system.LoginSystem.LoginSystem;
 import cse.airplane_management_system.LoginSystem.User;
+import cse.airplane_management_system.ReservationSystem.ReservationSystem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,13 @@ import java.util.Scanner;
 
 public class AirPlaneSystem {
     private List<AirPlane> airPlanes;
-    private LoginSystem loginSystem;
+    private User loginUser;
+    private ReservationSystem reservationSystem;
 
-    public AirPlaneSystem() {
+    public AirPlaneSystem() throws IOException {
         airPlanes = new ArrayList<>();
-        loginSystem = LoginSystem.GetSystem();
+        this.reservationSystem = ReservationSystem.GetSystem(loginUser);
+        reservationSystem.Init();
     }
 
     // 파일에서 항공편 정보 읽기
@@ -40,11 +42,13 @@ public class AirPlaneSystem {
             return;
         }
         System.out.println("등록된 항공편 목록:");
+        int airplaneIndex = 1;
         for (AirPlane airPlane : airPlanes) {
-            System.out.println("출발지: " + airPlane.GetDepartures() +
+            System.out.println( airplaneIndex + "."+"출발지: " + airPlane.GetDepartures() +
                     ", 도착지: " + airPlane.GetArrivals() +
                     ", 유형: " + airPlane.GetTypes() +
                     ", 날짜: " + airPlane.GetDates());
+            airplaneIndex++;
         }
     }
 
@@ -72,16 +76,8 @@ public class AirPlaneSystem {
         }
     }
 
-    // 관리자 확인 메서드
-    private boolean isAdmin() {
-        User loginUser = loginSystem.GetLoginUser();
-        return loginUser != null && loginUser.isAdmin(); // LoginSystem에서 isAdmin이 true면 관리자 확인
-    }
-
-    public void RunSystem() throws IOException {
-    loginSystem.Init();
-    loginSystem.RunSystem();
-
+    public void RunSystem(User GetUser) throws IOException {
+    this.loginUser = GetUser;
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
@@ -98,7 +94,7 @@ public class AirPlaneSystem {
                 printAllAirPlanes();
                 break;
             case 2:
-                if (loginSystem.GetLoginUser() != null && loginSystem.GetLoginUser().isAdmin()) {
+                if (loginUser.isAdmin()) {
                     runAdminMenu(scanner);
                 } else {
                     System.out.println("관리자가 아닙니다.");
