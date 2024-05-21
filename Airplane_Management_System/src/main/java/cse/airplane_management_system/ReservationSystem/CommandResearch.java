@@ -1,7 +1,5 @@
 package cse.airplane_management_system.ReservationSystem;
 
-import java.util.ArrayList;
-
 /**
  * @author 박상현
  */

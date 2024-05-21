@@ -36,6 +36,11 @@ class ReservationDB implements ResObjectDB{
     public ArrayList<Reservation> GetReservationDB() {
         return ReservationDBList;
     }
+    
+    public void DeleteReservation(int index){
+        ReservationDBList.remove(index);
+        dbSize--;
+    }
 
     @Override
     public Iterator CreatIterator() {

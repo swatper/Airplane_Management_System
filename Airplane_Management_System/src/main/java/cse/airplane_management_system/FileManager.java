@@ -118,7 +118,7 @@ public class FileManager {
                 ArrayList<Reservation> reservationWriter = (ArrayList<Reservation>) DBList;
                 for (Reservation temp : reservationWriter) {
                     //객체 정보 직렬화
-                    writeLine.add(temp.GetBookedAirline() + ";" + temp.GetBookedUserID() + ";"+ temp.GetBookedUserName() + ";" + 
+                    writeLine.add(temp.GetBookedAirline() +";" + temp.GetBookedAirlineDate()+";" + temp.GetBookedUserID() + ";"+ temp.GetBookedUserName() + ";" + 
                             temp.GetPhoneNumber() + ";" + temp.GetBookedSeatNum()+ "\n");
                 }
                 //파일에 저장
