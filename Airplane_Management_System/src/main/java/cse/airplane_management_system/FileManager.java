@@ -1,6 +1,8 @@
 package cse.airplane_management_system;
 
 import cse.airplane_management_system.LoginSystem.User;
+import cse.airplane_management_system.ReservationSystem.Reservation;
+import cse.airplane_management_system.AirPlaneSystem.AirPlane;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -59,11 +61,17 @@ public class FileManager {
             case 0:
                 File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\LoginSystem\\User.txt";
                 break;
-
             //항공기 시스템
+            case 1:
+                File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
+                break;
             //예약 시스템
+            case 2:
+                File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\ReservationSystem\\Reservation.txt";
+                break;
             //보고서 시스템
             default:
+                System.out.println("파일 읽기 타임 잘못됨");
                 return null;
         }
         //파일 내용 읽기
@@ -88,8 +96,8 @@ public class FileManager {
             case 0:
                 File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\LoginSystem\\User.txt";
                 write = new FileWriter(File_Path, false);
-                ArrayList<User> foodWriter = (ArrayList<User>) DBList;
-                for (User temp : foodWriter) {
+                ArrayList<User> userWriter = (ArrayList<User>) DBList;
+                for (User temp : userWriter) {
                     //객체 정보 직렬화
                     writeLine.add(temp.getUserID() + ";" + temp.getUserPassword() + ";" + temp.getUserName() + ";"
                             + temp.getUserAge() + ";" + temp.getUserGender() + ";" + temp.getUserAddress() + "\n");
@@ -103,8 +111,30 @@ public class FileManager {
                 break;
             //항공기 시스템
             case 1:
+                File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
+                write = new FileWriter(File_Path, false);
+                ArrayList<AirPlane> airplaneWriter = (ArrayList<AirPlane>) DBList;
+                for (AirPlane temp : airplaneWriter) {
+                    writeLine.add(temp.GetDepartures() + ";" + temp.GetArrivals() + ";" + temp.GetTypes() + ";" + temp.GetDates() + "\n");
+                }
                 break;
             //예약 시스템
+            case 2:
+               File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\ReservationSystem\\Reservation.txt";
+                write = new FileWriter(File_Path, false);
+                ArrayList<Reservation> reservationWriter = (ArrayList<Reservation>) DBList;
+                for (Reservation temp : reservationWriter) {
+                    //객체 정보 직렬화
+                    writeLine.add(temp.GetBookedAirline() + ";" + temp.GetBookedUserID() + ";"+ temp.GetBookedUserName() + ";" + 
+                            temp.GetPhoneNumber() + ";" + temp.GetBookedSeatNum()+ "\n");
+                }
+                //파일에 저장
+                for (String writeContext : writeLine) {
+                    write.write(writeContext);
+                }
+                write.flush();
+                write.close();
+                break;
 
             //보고서 시스템
         }
