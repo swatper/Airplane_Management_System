@@ -2,6 +2,7 @@ package cse.airplane_management_system;
 
 import cse.airplane_management_system.LoginSystem.User;
 import cse.airplane_management_system.ReservationSystem.Reservation;
+import cse.airplane_management_system.AirPlaneSystem.AirPlane;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -110,6 +111,12 @@ public class FileManager {
                 break;
             //항공기 시스템
             case 1:
+                File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
+                write = new FileWriter(File_Path, false);
+                ArrayList<AirPlane> airplaneWriter = (ArrayList<AirPlane>) DBList;
+                for (AirPlane temp : airplaneWriter) {
+                    writeLine.add(temp.GetDepartures() + ";" + temp.GetArrivals() + ";" + temp.GetTypes() + ";" + temp.GetDates() + "\n");
+                }
                 break;
             //예약 시스템
             case 2:
