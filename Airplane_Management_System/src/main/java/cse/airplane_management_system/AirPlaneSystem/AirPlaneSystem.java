@@ -31,43 +31,44 @@ public class AirPlaneSystem {
 
     // 새로운 항공편 추가 메서드
     public void addAirPlane(String departure, String arrival, String type, String airline, String date) {
-        AirPlane newAirPlane;
-        if (type.equalsIgnoreCase("Domestic")) {
-            newAirPlane = AirPlaneFactory.createAirPlane("Domestic", departure, arrival, airline, date);
-        } else if (type.equalsIgnoreCase("International")) {
-            newAirPlane = AirPlaneFactory.createAirPlane("International", departure, arrival, airline, date);
-        } else {
-            System.out.println("잘못된 항공편 유형입니다.");
-            return;
-        }
-        airPlanes.add(newAirPlane);
+        AirPlaneFactory factory;
+            if (type.equalsIgnoreCase("Domestic")) {
+                factory = new DomesticAirPlaneFactory();
+            } else if (type.equalsIgnoreCase("International")) {
+                factory = new InternationalAirPlaneFactory();
+            } else {
+                System.out.println("잘못된 항공편 유형입니다.");
+                return;
+            }
+        AirPlane airPlane = factory.createAirPlane(departure, arrival, airline, date);
+        airPlanes.add(airPlane);
         System.out.println("새로운 항공편이 추가되었습니다.");
     }
 
     // 모든 항공편 정보 출력 메서드
-public void printAllAirPlanes() {
-    if (airPlanes.isEmpty()) {
-        System.out.println("등록된 항공편이 없습니다.");
-        return;
+    public void printAllAirPlanes() {
+        if (airPlanes.isEmpty()) {
+            System.out.println("등록된 항공편이 없습니다.");
+            return;
+        }
+        System.out.println("모든 항공편 목록:");
+        System.out.println("======================================");
+        System.out.println("국내선 항공편 목록:");
+        printDomesticAirPlanes();
+        System.out.println("======================================");
+        System.out.println("국제선 항공편 목록:");
+        printInternationalAirPlanes();
     }
-    System.out.println("모든 항공편 목록:");
-    System.out.println("======================================");
-    System.out.println("국내선 항공편 목록:");
-    printDomesticAirPlanes();
-    System.out.println("======================================");
-    System.out.println("국제선 항공편 목록:");
-    printInternationalAirPlanes();
-}
 
-// 국내선 항공편 정보 출력 메서드
-public void printDomesticAirPlanes() {
-    if (airPlanes.isEmpty()) {
-        System.out.println("등록된 항공편이 없습니다.");
-        return;
-    }
-    int domesticAirplaneIndex = 1;
-    for (AirPlane airPlane : airPlanes) {
-        if (airPlane.isDomestic()) {
+    // 국내선 항공편 정보 출력 메서드
+    public void printDomesticAirPlanes() {
+        if (airPlanes.isEmpty()) {
+            System.out.println("등록된 항공편이 없습니다.");
+            return;
+        }
+        int domesticAirplaneIndex = 1;
+        for (AirPlane airPlane : airPlanes) {
+            if (airPlane.isDomestic()) {
                 System.out.println(domesticAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
                         ", 도착지: " + airPlane.getArrivals() +
                         ", 항공사: " + airPlane.getAirlines() +
@@ -77,14 +78,14 @@ public void printDomesticAirPlanes() {
         }
     }
 
-// 국제선 항공편 정보 출력 메서드
-public void printInternationalAirPlanes() {
-    if (airPlanes.isEmpty()) {
-        System.out.println("등록된 항공편이 없습니다.");
-        return;
-    }
-    int internationalAirplaneIndex = 1;
-    for (AirPlane airPlane : airPlanes) {
+    // 국제선 항공편 정보 출력 메서드
+    public void printInternationalAirPlanes() {
+        if (airPlanes.isEmpty()) {
+            System.out.println("등록된 항공편이 없습니다.");
+            return;
+        }
+        int internationalAirplaneIndex = 1;
+        for (AirPlane airPlane : airPlanes) {
             if (!airPlane.isDomestic()) {
                 System.out.println(internationalAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
                         ", 도착지: " + airPlane.getArrivals() +
@@ -120,8 +121,8 @@ public void printInternationalAirPlanes() {
     }
 
     public void RunSystem(User GetUser) throws IOException {
-    this.loginUser = GetUser;
-    Scanner scanner = new Scanner(System.in);
+        this.loginUser = GetUser;
+        Scanner scanner = new Scanner(System.in);
 
     while (true) {
         System.out.println("======================================");
@@ -155,17 +156,17 @@ public void printInternationalAirPlanes() {
     }
 }
 
-private void runAdminMenu(Scanner scanner) throws IOException {
-    while (true) {
-        System.out.println("======================================");
-        System.out.println("관리자 메뉴");
-        System.out.println("1. 새로운 항공편 추가");
-        System.out.println("2. 항공편 수정");
-        System.out.println("3. 항공편 삭제");
-        System.out.println("4. 메인 메뉴로 돌아가기");
-        System.out.print("메뉴를 선택하세요: ");
-        int adminChoice = scanner.nextInt();
-        scanner.nextLine(); // 버퍼 비우기
+    private void runAdminMenu(Scanner scanner) throws IOException {
+        while (true) {
+            System.out.println("======================================");
+            System.out.println("관리자 메뉴");
+            System.out.println("1. 새로운 항공편 추가");
+            System.out.println("2. 항공편 수정");
+            System.out.println("3. 항공편 삭제");
+            System.out.println("4. 메인 메뉴로 돌아가기");
+            System.out.print("메뉴를 선택하세요: ");
+            int adminChoice = scanner.nextInt();
+            scanner.nextLine(); // 버퍼 비우기
 
         switch (adminChoice) {
             case 1:
@@ -177,13 +178,13 @@ private void runAdminMenu(Scanner scanner) throws IOException {
                 scanner.nextLine(); //버퍼 비우기
                 
                 String type;
-                if (typeChoice == 1) {
-                    type = "Domestic";                   
-                } else if (typeChoice == 2) {
-                    type = "International";
-                } else {
-                    System.out.println("잘못된 선택입니다.");
-                    break;
+                    if (typeChoice == 1) {
+                        type = "Domestic";                   
+                    } else if (typeChoice == 2) {
+                        type = "International";
+                    } else {
+                        System.out.println("잘못된 선택입니다.");
+                        break;
                 }
                 
                 System.out.print("출발지를 입력하세요: ");
@@ -208,13 +209,13 @@ private void runAdminMenu(Scanner scanner) throws IOException {
                 typeChoice = scanner.nextInt();
                 scanner.nextLine(); 
                 
-                if(typeChoice == 1) {
-                    type = "Domestic";                    
-                } else if (typeChoice == 2) {
-                    type = "International";                   
-                } else {
-                    System.out.println("잘못된 선택입니다.");
-                    break;
+                    if(typeChoice == 1) {
+                        type = "Domestic";                    
+                    } else if (typeChoice == 2) {
+                        type = "International";                   
+                    } else {
+                        System.out.println("잘못된 선택입니다.");
+                        break;
                 }                
                 System.out.print("새로운 출발지를 입력하세요: ");
                 String newDeparture = scanner.nextLine();
@@ -237,6 +238,6 @@ private void runAdminMenu(Scanner scanner) throws IOException {
             default:
                 System.out.println("잘못된 선택입니다. 다시 선택해주세요.");
             }
-     }
+    }
     }
 }

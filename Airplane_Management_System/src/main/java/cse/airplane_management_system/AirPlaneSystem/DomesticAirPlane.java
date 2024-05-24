@@ -10,8 +10,13 @@ package cse.airplane_management_system.AirPlaneSystem;
  */
 public class DomesticAirPlane extends AirPlane {
     // DomesticAirPlane 생성자
-    public DomesticAirPlane(String departure, String arrival, String date) {
-        super(departure, arrival, "Domestic", date, true); // 부모 클래스의 생성자 호출
+    public DomesticAirPlane(String departure, String arrival, String airline, String date) {
+        super(departure, arrival, airline, date, true);
+    }
+
+    @Override
+    public boolean isDomestic() {
+        return true;
     }
 }
 

@@ -10,7 +10,12 @@ package cse.airplane_management_system.AirPlaneSystem;
  */
 public class InternationalAirPlane extends AirPlane {
     // InternationalAirPlane 생성자
-    public InternationalAirPlane(String departure, String arrival, String date) {
-        super(departure, arrival, "International", date, true); // 부모 클래스의 생성자 호출
+    public InternationalAirPlane(String departure, String arrival, String airline, String date) {
+        super(departure, arrival, airline, date, true);
+    }
+
+    @Override
+    public boolean isDomestic() {
+        return false;
     }
 }

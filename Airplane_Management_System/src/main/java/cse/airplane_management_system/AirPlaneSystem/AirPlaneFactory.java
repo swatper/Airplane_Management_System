@@ -8,17 +8,23 @@ package cse.airplane_management_system.AirPlaneSystem;
  *
  * @author 가영
  */
-public class AirPlaneFactory {
-    // 정적 팩토리 메서드
-    public static AirPlane createAirPlane(String type, String departure, String arrival, String airline, String date) {
-        // 입력된 유형에 따라 객체 생성
-        if(type.equalsIgnoreCase("Domestic")){
-            return new AirPlane(departure, arrival, airline, date, true); //DomesticAirPlane 객체 반환
-        } else if (type.equalsIgnoreCase("International")) {
-            return new AirPlane(departure, arrival, airline, date, false); //InternationalAirPlane 객체 반환
-        }
-        // 잘못된 유형 입력 시 예외 발생
-        throw new IllegalArgumentException("Invalid type: "+type);
-        }
-    
+// 추상 팩토리 클래스
+public abstract class AirPlaneFactory {
+    public abstract AirPlane createAirPlane(String departure, String arrival, String airline, String date);
+}
+
+// DomesticAirPlaneFactory 클래스
+class DomesticAirPlaneFactory extends AirPlaneFactory {
+    @Override
+    public AirPlane createAirPlane(String departure, String arrival, String airline, String date) {
+        return new DomesticAirPlane(departure, arrival, airline, date);
     }
+}
+
+// InternationalAirPlaneFactory 클래스
+class InternationalAirPlaneFactory extends AirPlaneFactory {
+    @Override
+    public AirPlane createAirPlane(String departure, String arrival, String airline, String date) {
+        return new InternationalAirPlane(departure, arrival, airline, date);
+    }
+}
