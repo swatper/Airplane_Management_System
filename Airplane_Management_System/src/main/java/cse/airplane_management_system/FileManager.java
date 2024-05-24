@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 
 /**
  * @author 박상현
@@ -132,6 +132,7 @@ public class FileManager {
                 for (String writeContext : writeLine) {
                     write.write(writeContext);
                 }
+                
                 write.flush();
                 write.close();
                 break;
