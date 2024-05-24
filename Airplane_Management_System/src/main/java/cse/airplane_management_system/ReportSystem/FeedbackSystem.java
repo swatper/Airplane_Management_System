@@ -9,10 +9,12 @@ import java.io.PrintWriter; // PrintWriter 클래스 import
 import java.util.Scanner; // 사용자 입력을 받기 위한 클래스 import
 import java.io.FileOutputStream; 
 import java.io.OutputStreamWriter; 
+
 /**
  *
  * @author 박규리
  */
+
 public class FeedbackSystem {
         // collectFeedback 메소드 - 사용자로부터 만족도와 피드백을 입력받음.
         //만족도는 0에서 10 사이의 숫자로 제한하고, 잘못된 입력(숫자가 아닌 경우)이나 범위를 벗어난 입력에 대한 예외 처리를 포함.
@@ -56,11 +58,6 @@ public class FeedbackSystem {
             System.out.println("피드백을 저장하는 동안 오류가 발생했습니다.");
             e.printStackTrace(); // 예외의 상세 정보를 출력하여 문제를 진단하는 데 도움을 줌
         }
-    }
-
-    public static void main(String[] args) {
-        FeedbackSystem feedbackSystem = new FeedbackSystem();
-        feedbackSystem.collectFeedback();
     }
 }
 
