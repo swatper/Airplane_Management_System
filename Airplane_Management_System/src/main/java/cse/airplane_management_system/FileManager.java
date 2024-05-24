@@ -1,6 +1,7 @@
 package cse.airplane_management_system;
 
 import cse.airplane_management_system.LoginSystem.User;
+import cse.airplane_management_system.AirPlaneSystem.AirPlane;
 import cse.airplane_management_system.ReservationSystem.Reservation;
 import java.io.BufferedReader;
 import java.io.File;
@@ -110,6 +111,20 @@ public class FileManager {
                 break;
             //항공기 시스템
             case 1:
+                // AirPlane 정보를 파일에 저장
+                File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
+                write = new FileWriter(File_Path, false);
+                ArrayList<AirPlane> airplaneList = (ArrayList<AirPlane>) DBList;
+                for (AirPlane airplane : airplaneList) {
+                    // 객체 정보 직렬화
+                   writeLine.add(airplane.getDepartures() + ";" + airplane.getArrivals() + ";" + airplane.getDates() + ";" + airplane.isDomestic() + "\n");
+                }
+                // 파일에 저장
+                for (String writeContext : writeLine) {
+                    write.write(writeContext);
+                }
+                write.flush();
+                write.close();
                 break;
             //예약 시스템
             case 2:
