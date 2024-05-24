@@ -17,8 +17,8 @@ public class AirPlaneSyetem_TestDriver {
         AirPlaneSystem system = new AirPlaneSystem();
 
         // 항공편 추가
-        system.addAirPlane("Seoul", "Busan", "Domestic", "2024-05-15");
-        system.addAirPlane("Busan", "Jeju", "Domestic", "2024-05-16");
+        system.addAirPlane("Seoul", "Busan", "Domestic", "Korean Air", "2024-05-15");
+        system.addAirPlane("Busan", "Jeju", "Domestic", "Asiana Airlines", "2024-05-16");
 
         // 모든 항공편 조회
         system.printAllAirPlanes();

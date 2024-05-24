@@ -30,12 +30,12 @@ public class AirPlaneSystem {
     }
 
     // 새로운 항공편 추가 메서드
-    public void addAirPlane(String departure, String arrival, String airline, String date) {
+    public void addAirPlane(String departure, String arrival, String type, String airline, String date) {
         AirPlane newAirPlane;
-        if (airline.equalsIgnoreCase("Domestic")) {
-            newAirPlane = new DomesticAirPlane(departure, arrival, date);
-        } else if (airline.equalsIgnoreCase("International")) {
-            newAirPlane = new InternationalAirPlane(departure, arrival, date);
+        if (type.equalsIgnoreCase("Domestic")) {
+            newAirPlane = AirPlaneFactory.createAirPlane("Domestic", departure, arrival, airline, date);
+        } else if (type.equalsIgnoreCase("International")) {
+            newAirPlane = AirPlaneFactory.createAirPlane("International", departure, arrival, airline, date);
         } else {
             System.out.println("잘못된 항공편 유형입니다.");
             return;
@@ -67,14 +67,15 @@ public void printDomesticAirPlanes() {
     }
     int domesticAirplaneIndex = 1;
     for (AirPlane airPlane : airPlanes) {
-        if (airPlane.getTypes().equalsIgnoreCase("Domestic")) {
-            System.out.println(domesticAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
-                    ", 도착지: " + airPlane.getArrivals() +
-                    ", 날짜: " + airPlane.getDates());
-            domesticAirplaneIndex++;
+        if (airPlane.isDomestic()) {
+                System.out.println(domesticAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
+                        ", 도착지: " + airPlane.getArrivals() +
+                        ", 항공사: " + airPlane.getAirlines() +
+                        ", 날짜: " + airPlane.getDates());
+                domesticAirplaneIndex++;
+            }
         }
     }
-}
 
 // 국제선 항공편 정보 출력 메서드
 public void printInternationalAirPlanes() {
@@ -84,22 +85,23 @@ public void printInternationalAirPlanes() {
     }
     int internationalAirplaneIndex = 1;
     for (AirPlane airPlane : airPlanes) {
-        if (airPlane.getTypes().equalsIgnoreCase("International")) {
-            System.out.println(internationalAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
-                    ", 도착지: " + airPlane.getArrivals() +
-                    ", 날짜: " + airPlane.getDates());
-            internationalAirplaneIndex++;
+            if (!airPlane.isDomestic()) {
+                System.out.println(internationalAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
+                        ", 도착지: " + airPlane.getArrivals() +
+                        ", 항공사: " + airPlane.getAirlines() +
+                        ", 날짜: " + airPlane.getDates());
+                internationalAirplaneIndex++;
+            }
         }
     }
-}
 
     // 항공편 수정 메서드
-    public void updateAirPlane(int index, String departure, String arrival, String type, String date) {
+    public void updateAirPlane(int index, String departure, String arrival, String airline, String date) {
         if (index >= 0 && index < airPlanes.size()) {
             AirPlane airPlane = airPlanes.get(index);
             airPlane.setDepartures(departure);
             airPlane.setArrivals(arrival);
-            airPlane.setTypes(type);
+            airPlane.setAirlines(airline);
             airPlane.setDates(date);
             System.out.println("항공편 정보가 수정되었습니다.");
         } else {
@@ -192,7 +194,7 @@ private void runAdminMenu(Scanner scanner) throws IOException {
                 String airline = scanner.nextLine();
                 System.out.print("날짜를 입력하세요: ");
                 String date = scanner.nextLine();
-                addAirPlane(departure, arrival, airline, date);
+                addAirPlane(departure, arrival, type, airline, date);
                 break;
                 
             case 2:
@@ -219,10 +221,10 @@ private void runAdminMenu(Scanner scanner) throws IOException {
                 System.out.print("새로운 도착지를 입력하세요: ");
                 String newArrival = scanner.nextLine();
                 System.out.print("새로운 항공사를 입력하세요: ");
-                String newType = scanner.nextLine();
+                String newAirline = scanner.nextLine();
                 System.out.print("새로운 날짜를 입력하세요(yyyy-mm-dd): ");
                 String newDate = scanner.nextLine();
-                updateAirPlane(indexToUpdate, newDeparture, newArrival, newType, newDate);
+                updateAirPlane(indexToUpdate, newDeparture, newArrival, newAirline, newDate);
                 break;
             case 3:
                 System.out.print("삭제할 항공편의 인덱스를 입력하세요: ");

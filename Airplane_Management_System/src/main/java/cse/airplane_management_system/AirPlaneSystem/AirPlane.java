@@ -7,15 +7,15 @@ package cse.airplane_management_system.AirPlaneSystem;
 public class AirPlane {
     private String Departures; //출발지
     private String Arrivals;      //도착지
-    private String Types;         //항공사
+    private String Airlines;         //항공사
     private String Dates;        //날짜
     private boolean isDomestic; //국내선 국제선 여부
 
     // 생성자
-    public AirPlane(String Departure, String Arrival, String Type, String Date, boolean isDomestic){
+    public AirPlane(String Departure, String Arrival, String Airline, String Date, boolean isDomestic){
         this.Departures = Departure;
         this.Arrivals = Arrival;
-        this.Types = Type;
+        this.Airlines = Airline;
         this.Dates = Date;
         this.isDomestic = isDomestic;
     }
@@ -37,12 +37,12 @@ public class AirPlane {
         this.Arrivals = arrival;
     }
 
-    public String getTypes() {
-        return Types;
+    public String getAirlines() {
+        return Airlines;
     }
 
-    public void setTypes(String type) {
-        this.Types = type;
+    public void setAirlines(String airline) {
+        this.Airlines = airline;
     }
 
     public String getDates() {
