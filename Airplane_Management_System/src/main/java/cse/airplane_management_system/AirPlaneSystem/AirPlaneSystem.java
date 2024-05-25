@@ -23,13 +23,30 @@ public class AirPlaneSystem {
 
     // 파일에서 항공편 정보 읽기
     public void loadFromFile() throws IOException {
-        // 로직 생략 (기존 코드 사용)
+        List<String> lines = fileManager.readDBFile(1); // 1은 항공기 시스템을 나타냄
+        for (String line : lines) {
+            String[] parts = line.split(";");
+            if (parts.length == 5) {
+                String departure = parts[0];
+                String arrival = parts[1];
+                String airline = parts[2];
+                String date = parts[3];
+                boolean isDomestic = Boolean.parseBoolean(parts[4]);
+                AirPlane airPlane;
+                if (isDomestic) {
+                    airPlane = new DomesticAirPlane(departure, arrival, airline, date);
+                } else {
+                    airPlane = new InternationalAirPlane(departure, arrival, airline, date);
+                }
+                airPlanes.add(airPlane);
+            }
+        }
     }
-
+    
     // 파일에 항공편 정보 저장
     public void saveToFile() throws IOException {
-        // 로직 생략 (기존 코드 사용)
-    }
+        fileManager.writeDBFile(1, airPlanes); // 1은 항공기 시스템을 나타냄
+    }   
 
     // 새로운 항공편 추가 메서드
     public void addAirPlane(String departure, String arrival, String type, String airline, String date) {
@@ -140,6 +157,7 @@ public class AirPlaneSystem {
 
     public void RunSystem(User GetUser) throws IOException {
         this.loginUser = GetUser;
+        loadFromFile(); // 시스템 시작 시 파일에서 항공편 정보 로드
         Scanner scanner = new Scanner(System.in);
 
     while (true) {
@@ -165,7 +183,7 @@ public class AirPlaneSystem {
                 break;
             case 3:
                 System.out.println("프로그램을 종료합니다.");
-                saveToFile();
+                saveToFile(); // 파일에 항공편 정보 저장
                 System.exit(0);
                 break;
             default:
@@ -205,7 +223,7 @@ public class AirPlaneSystem {
                         break;
                 }
                                  
-                 System.out.println("항공사를 선택하세요:");
+                    System.out.println("항공사를 선택하세요:");
                     System.out.println("1. 대한 항공");
                     System.out.println("2. 아시아나 항공");
                     System.out.println("3. 제주 항공");
@@ -262,13 +280,15 @@ public class AirPlaneSystem {
                 System.out.print("선택: ");
                 airlineChoice = scanner.nextInt();
                 scanner.nextLine(); // 버퍼 비우기
-                               
+                
+                
+                String newAirline;
                 if (airlineChoice == 1) {
-                    airline = "대한 항공";                    
+                    newAirline = "대한 항공";                    
                 } else if (airlineChoice == 2) {
-                    airline = "아시아나 항공";
+                    newAirline = "아시아나 항공";
                 } else if (airlineChoice == 3) {
-                    airline = "제주 항공";
+                    newAirline = "제주 항공";
                 } else {
                     System.out.println("잘못된 선택입니다.");
                     break;
@@ -277,10 +297,8 @@ public class AirPlaneSystem {
                 System.out.print("새로운 출발지를 입력하세요: ");
                 String newDeparture = scanner.nextLine();
                 System.out.print("새로운 도착지를 입력하세요: ");
-                String newArrival = scanner.nextLine();
-                System.out.print("새로운 항공사를 입력하세요: ");
-                String newAirline = scanner.nextLine();
-                System.out.print("새로운 날짜를 입력하세요(yyyy-mm-dd): ");
+                String newArrival = scanner.nextLine();               
+                System.out.print("새로운 날짜를 입력하세요: ");
                 String newDate = scanner.nextLine();
                 updateAirPlane(indexToUpdate, newDeparture, newArrival, newAirline, newDate);
                 break;

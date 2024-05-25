@@ -52,7 +52,8 @@ public class AirPlane {
     public void setDates(String date) {
         this.Dates = date;
     }
-     public boolean isDomestic() {
+    public boolean isDomestic() {
         return isDomestic;
     }
+    
 }
