@@ -25,102 +25,102 @@ public class AirPlaneSystem {
         loadFromFile();
     }
 
-   // 파일에서 항공편 정보 읽기
-public void loadFromFile() {
-    try {
-        ArrayList<String> fileContents = fileManager.readDBFile(DB_TYPE);
-        for (String line : fileContents) {
-            String[] parts = line.split(";");
-            if (parts.length == 7) { // 좌석 정보가 포함된 파일 형식
-                AirPlane airPlane = new AirPlane(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]), parts[5]);
-                String[] seats = parts[6].split(",");
-                ArrayList<Boolean> seatList = new ArrayList<>();
-                for (String seat : seats) {                                       // 각 좌석 정보를 Boolean 형태로 변환하여 리스트에 추가
-                    seatList.add(seat.equals("1"));
+    // 파일에서 항공편 정보 읽기
+    public void loadFromFile() {
+        try {
+            ArrayList<String> fileContents = fileManager.readDBFile(DB_TYPE);
+            for (String line : fileContents) {
+                String[] parts = line.split(";");
+                if (parts.length == 7) { // 좌석 정보가 포함된 파일 형식
+                    AirPlane airPlane = new AirPlane(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]), parts[5]);
+                    String[] seats = parts[6].split(",");
+                    ArrayList<Boolean> seatList = new ArrayList<>();
+                    for (String seat : seats) {                                       // 각 좌석 정보를 Boolean 형태로 변환하여 리스트에 추가
+                        seatList.add(seat.equals("1"));
+                    }
+                    airPlane.SetSeats(seatList);
+                    airPlanes.add(airPlane);
+                } else {
+                    System.err.println("잘못된 파일 형식입니다.");
                 }
-                airPlane.SetSeats(seatList);
-                airPlanes.add(airPlane);
-            } else {
-                System.err.println("잘못된 파일 형식입니다.");
             }
+        } catch (IOException e) {
+            System.err.println("파일 읽기 중 오류 발생: " + e.getMessage());
         }
-    } catch (IOException e) {
-        System.err.println("파일 읽기 중 오류 발생: " + e.getMessage());
     }
-}
 
     // 파일에 항공편 정보 저장
     public void saveToFile() throws IOException {
         try {
-        ArrayList<String> writeLines = new ArrayList<>();
-        for (AirPlane airPlane : airPlanes) {
-            StringBuilder seats = new StringBuilder();
-            for (Boolean seat : airPlane.GetSeats()) {
-                seats.append(seat ? "1" : "0").append(",");  // 좌석이 예약되어 있으면 "1", 아니면 "0"으로 표시
-            }
-            seats.setLength(seats.length() - 1); // 마지막 콤마 제거 -> 좌석 정보 문자열의 끝을 나타내므로 제거하여 올바른 형식으로 문자열을 구성함
+            ArrayList<String> writeLines = new ArrayList<>();
+            for (AirPlane airPlane : airPlanes) {
+                StringBuilder seats = new StringBuilder();
+                for (Boolean seat : airPlane.GetSeats()) {
+                    seats.append(seat ? "1" : "0").append(",");  // 좌석이 예약되어 있으면 "1", 아니면 "0"으로 표시
+                }
+                seats.setLength(seats.length() - 1); // 마지막 콤마 제거 -> 좌석 정보 문자열의 끝을 나타내므로 제거하여 올바른 형식으로 문자열을 구성함
 
-            writeLines.add(airPlane.GetDepartures() + ";" + airPlane.GetArrivals() + ";" +
-                    airPlane.GetTypes() + ";" + airPlane.GetDates() + ";" +
-                    airPlane.GetPrice() + ";" + airPlane.GetName() + ";" + seats.toString());
+                writeLines.add(airPlane.GetDepartures() + ";" + airPlane.GetArrivals() + ";" +
+                        airPlane.GetTypes() + ";" + airPlane.GetDates() + ";" +
+                        airPlane.GetPrice() + ";" + airPlane.GetName() + ";" + seats.toString());
+            }
+            fileManager.writeDBFile(DB_TYPE, writeLines);
+        } catch (IOException e) {
+            System.err.println("파일 저장 중 오류 발생: " + e.getMessage());
         }
-        fileManager.writeDBFile(DB_TYPE, writeLines);
-    } catch (IOException e) {
-        System.err.println("파일 저장 중 오류 발생: " + e.getMessage());
     }
-}
-    
-     // 새로운 항공편 추가 메서드
+
+    // 새로운 항공편 추가 메서드
     public void addAirPlane(String departure, String arrival, String type, String date, int price, String name) {
         AirPlane newAirPlane = new AirPlane(departure, arrival, type, date, price, name);
         airPlanes.add(newAirPlane);
         System.out.println("새로운 항공편이 추가되었습니다.");
     }
 
-  // 모든 항공편 정보 출력 메서드
-public void printAllAirPlanes() {
-    if (airPlanes.isEmpty()) {
-        System.out.println("등록된 항공편이 없습니다.");
-        return;
-    }
-    System.out.println("등록된 항공편 목록:");
-    int airplaneIndex = 1;
-    for (AirPlane airPlane : airPlanes) {
-        // 예약되지 않은 좌석 수 계산
-        int availableSeats = 0;
-        for (Boolean seat : airPlane.GetSeats()) {
-            if (!seat) {
-                availableSeats++;
+    // 모든 항공편 정보 출력 메서드
+    public void printAllAirPlanes() {
+        if (airPlanes.isEmpty()) {
+            System.out.println("등록된 항공편이 없습니다.");
+            return;
+        }
+        System.out.println("등록된 항공편 목록:");
+        int airplaneIndex = 1;
+        for (AirPlane airPlane : airPlanes) {
+            // 예약되지 않은 좌석 수 계산
+            int availableSeats = 0;
+            for (Boolean seat : airPlane.GetSeats()) {
+                if (!seat) {
+                    availableSeats++;
+                }
             }
+
+            System.out.println("항공편 인덱스: " + (airplaneIndex - 1)); // 항공편 인덱스
+            System.out.println("출발지: " + airPlane.GetDepartures());
+            System.out.println("도착지: " + airPlane.GetArrivals());
+            System.out.println("유형: " + airPlane.GetTypes());
+            System.out.println("날짜: " + airPlane.GetDates());
+            System.out.println("가격: " + airPlane.GetPrice());
+            System.out.println("항공사명: " + airPlane.GetName());
+            System.out.println("좌석 현황: " + availableSeats + "/" + airPlane.GetSeats().size()); // 좌석 현황
+            airplaneIndex++;
         }
-
-        System.out.println(airplaneIndex + ". 출발지: " + airPlane.GetDepartures() +
-                ", 도착지: " + airPlane.GetArrivals() +
-                ", 유형: " + airPlane.GetTypes() +
-                ", 날짜: " + airPlane.GetDates() +
-                ", 가격: " + airPlane.GetPrice() +
-                ", 항공사명: " + airPlane.GetName() +
-                ", 남은 좌석 수: " + availableSeats);
-        airplaneIndex++;
     }
-}
 
-      // 항공편 수정 메서드
-    public void updateAirPlane(int index, String departure, String arrival, String type, String date, int price, String name) {
+    // 항공편 수정 메서드
+    public void updateAirPlane(int index, String newDeparture, String newArrival, String newType, String newDate, int newPrice, String newName) {
         if (index >= 0 && index < airPlanes.size()) {
-            AirPlane airPlane = airPlanes.get(index);
-            airPlane.SetDepartures(departure);
-            airPlane.SetArrivals(arrival);
-            airPlane.SetTypes(type);
-            airPlane.SetDates(date);
-            airPlane.SetPrice(price);
-            airPlane.SetName(name);
-            System.out.println("항공편 정보가 수정되었습니다.");
+            AirPlane airPlaneToUpdate = airPlanes.get(index);
+            airPlaneToUpdate.SetDepartures(newDeparture);
+            airPlaneToUpdate.SetArrivals(newArrival);
+            airPlaneToUpdate.SetTypes(newType);
+            airPlaneToUpdate.SetDates(newDate);
+            airPlaneToUpdate.SetPrice(newPrice);
+            airPlaneToUpdate.SetName(newName);
+            System.out.println("항공편이 수정되었습니다.");
         } else {
-            System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
+            System.out.println("잘못된 항공편 인덱스입니다.");
         }
     }
-
 
     // 항공편 삭제 메서드
     public void deleteAirPlane(int index) {
@@ -128,11 +128,26 @@ public void printAllAirPlanes() {
             airPlanes.remove(index);
             System.out.println("항공편이 삭제되었습니다.");
         } else {
-            System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
+            System.out.println("잘못된 항공편 인덱스입니다.");
         }
     }
 
-    //실행 메서드
+    // 실행 메서드
+    public void RunSystem(User GetUser) throws IOException {
+        this.loginUser = GetUser;
+        MenuContext menuContext = new MenuContext();
+
+        if (loginUser.isAdmin()) {
+            menuContext.setStrategy(new AdminMenuStrategy(this));
+        } else {
+            menuContext.setStrategy(new UserMenuStrategy(this));
+        }
+
+        menuContext.executeStrategy();
+    }
+}
+    // 기존 실행 메서드
+    /* 
     public void RunSystem(User GetUser) throws IOException {
     this.loginUser = GetUser;
     Scanner scanner = new Scanner(System.in);
@@ -230,5 +245,5 @@ public void printAllAirPlanes() {
                     System.out.println("잘못된 선택입니다. 다시 선택해주세요.");
             }
         }
-    }
-}
+    } 
+*/
