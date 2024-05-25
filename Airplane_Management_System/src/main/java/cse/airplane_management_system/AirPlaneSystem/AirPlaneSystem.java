@@ -1,6 +1,6 @@
 package cse.airplane_management_system.AirPlaneSystem;
 
-//import cse.airplane_management_system.FileManager;
+import cse.airplane_management_system.FileManager;
 import cse.airplane_management_system.LoginSystem.User;
 import cse.airplane_management_system.ReservationSystem.ReservationSystem;
 import java.io.IOException;
@@ -12,16 +12,18 @@ public class AirPlaneSystem {
     private List<AirPlane> airPlanes; // 모든 항공편 목록
     private User loginUser; //로그인된 사용자
     private ReservationSystem reservationSystem; // 예약 시스템
+    private FileManager fileManager; //파일 매니저
 
     public AirPlaneSystem() throws IOException {
         airPlanes = new ArrayList<>();
+        this.fileManager = new FileManager();
         this.reservationSystem = ReservationSystem.GetSystem(loginUser);
         reservationSystem.Init();
     }
 
     // 파일에서 항공편 정보 읽기
     public void loadFromFile() throws IOException {
-        
+        // 로직 생략 (기존 코드 사용)
     }
 
     // 파일에 항공편 정보 저장
@@ -32,15 +34,31 @@ public class AirPlaneSystem {
     // 새로운 항공편 추가 메서드
     public void addAirPlane(String departure, String arrival, String type, String airline, String date) {
         AirPlaneFactory factory;
-            if (type.equalsIgnoreCase("Domestic")) {
-                factory = new DomesticAirPlaneFactory();
-            } else if (type.equalsIgnoreCase("International")) {
-                factory = new InternationalAirPlaneFactory();
-            } else {
-                System.out.println("잘못된 항공편 유형입니다.");
+            switch (airline) {
+            case "대한 항공":
+                factory = new KoreanAirFactory();
+                break;
+            case "아시아나 항공":
+                factory = new AsianaAirFactory();
+                break;
+            case "제주 항공":
+                factory = new JejuAirFactory();
+                break;
+            default:
+                System.out.println("잘못된 항공사입니다.");
                 return;
-            }
-        AirPlane airPlane = factory.createAirPlane(departure, arrival, airline, date);
+        }
+
+        AirPlane airPlane;
+        if (type.equalsIgnoreCase("Domestic")) {
+            airPlane = factory.createDomesticAirPlane(departure, arrival, date);
+        } else if (type.equalsIgnoreCase("International")) {
+            airPlane = factory.createInternationalAirPlane(departure, arrival, date);
+        } else {
+            System.out.println("잘못된 항공편 유형입니다.");
+            return;
+        }
+
         airPlanes.add(airPlane);
         System.out.println("새로운 항공편이 추가되었습니다.");
     }
@@ -170,7 +188,7 @@ public class AirPlaneSystem {
 
         switch (adminChoice) {
             case 1:
-                System.out.println("항공편 유형을 선택하세요:");
+                System.out.println("항공편 유형을 선택하세요");
                 System.out.println("1. 국내선");
                 System.out.println("2. 국제선");
                 System.out.print("선택: ");
@@ -186,13 +204,32 @@ public class AirPlaneSystem {
                         System.out.println("잘못된 선택입니다.");
                         break;
                 }
-                
+                                 
+                 System.out.println("항공사를 선택하세요:");
+                    System.out.println("1. 대한 항공");
+                    System.out.println("2. 아시아나 항공");
+                    System.out.println("3. 제주 항공");
+                    System.out.print("선택: ");
+                    int airlineChoice = scanner.nextInt();
+                    scanner.nextLine(); // 버퍼 비우기
+
+                    String airline;
+                    if (airlineChoice == 1) {
+                        airline = "대한 항공";
+                    } else if (airlineChoice == 2) {
+                        airline = "아시아나 항공";
+                    } else if (airlineChoice == 3) {
+                        airline = "제주 항공";
+                    } else {
+                        System.out.println("잘못된 선택입니다.");
+                        break;
+                    }
+    
+                    
                 System.out.print("출발지를 입력하세요: ");
                 String departure = scanner.nextLine();
                 System.out.print("도착지를 입력하세요: ");
-                String arrival = scanner.nextLine();
-                System.out.print("항공사를 입력하세요: ");
-                String airline = scanner.nextLine();
+                String arrival = scanner.nextLine();                                            
                 System.out.print("날짜를 입력하세요: ");
                 String date = scanner.nextLine();
                 addAirPlane(departure, arrival, type, airline, date);
@@ -216,7 +253,27 @@ public class AirPlaneSystem {
                     } else {
                         System.out.println("잘못된 선택입니다.");
                         break;
-                }                
+                }
+                    
+                System.out.println("항공사를 선택하세요:");
+                System.out.println("1. 대한 항공");
+                System.out.println("2. 아시아나 항공");
+                System.out.println("3. 제주 항공");
+                System.out.print("선택: ");
+                airlineChoice = scanner.nextInt();
+                scanner.nextLine(); // 버퍼 비우기
+                               
+                if (airlineChoice == 1) {
+                    airline = "대한 항공";                    
+                } else if (airlineChoice == 2) {
+                    airline = "아시아나 항공";
+                } else if (airlineChoice == 3) {
+                    airline = "제주 항공";
+                } else {
+                    System.out.println("잘못된 선택입니다.");
+                    break;
+                }
+                
                 System.out.print("새로운 출발지를 입력하세요: ");
                 String newDeparture = scanner.nextLine();
                 System.out.print("새로운 도착지를 입력하세요: ");

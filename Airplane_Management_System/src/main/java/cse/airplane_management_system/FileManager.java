@@ -117,7 +117,7 @@ public class FileManager {
                 ArrayList<AirPlane> airplaneList = (ArrayList<AirPlane>) DBList;
                 for (AirPlane airplane : airplaneList) {
                     // 객체 정보 직렬화
-                   writeLine.add(airplane.getDepartures() + ";" + airplane.getArrivals() + ";" + airplane.getDates() + ";" + airplane.isDomestic() + "\n");
+                   writeLine.add(airplane.getDepartures() + ";" + airplane.getArrivals() + ";" + airplane.getAirlines() + ";" + airplane.getDates() + ";" + airplane.isDomestic() + "\n");
                 }
                 // 파일에 저장
                 for (String writeContext : writeLine) {
