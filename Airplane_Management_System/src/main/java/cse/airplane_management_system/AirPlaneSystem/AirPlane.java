@@ -13,7 +13,7 @@ public class AirPlane {
     private int Price;         // 가격
     private String Name;       // 항공사명
     private ArrayList<Boolean> Seats; // 좌석 정보
-    private int Totalprice; // 항공편 전체 가격 (좌석 수 * 항공편 가격)
+    private int Totalprice; // 항공편 전체 가격 (예약된 좌석 수 * 항공편 가격)
 
     // 생성자
     public AirPlane(String departure, String arrival, String type, String date, int price, String name) {
@@ -49,12 +49,12 @@ public class AirPlane {
         return Types;
     }
 
-   public void SetTypes(String type) {
+    public void SetTypes(String type) {
         this.Types = type;
         initializeSeats(type);
         updateTotalPrice();
-   }
-        
+    }
+
     public String GetDates() {
         return Dates;
     }
@@ -77,10 +77,10 @@ public class AirPlane {
     }
 
     public void SetName(String name) {
-        this.Name = name;   
+        this.Name = name;
     }
-    
-   public ArrayList<Boolean> GetSeats() {
+
+    public ArrayList<Boolean> GetSeats() {
         return Seats;
     }
 
@@ -88,16 +88,23 @@ public class AirPlane {
         this.Seats = seats;
         updateTotalPrice();
     }
-    public int getTotalprice() {
+
+    public int GetTotalprice() {
         return Totalprice;
     }
 
     // 전체 가격 업데이트 메서드
     private void updateTotalPrice() {
-        this.Totalprice = this.Price * this.Seats.size();
+        int reservedSeats = 0;
+        for (Boolean seat : Seats) {
+            if (seat) {
+                reservedSeats++;
+            }
+        }
+        this.Totalprice = this.Price * reservedSeats; // 항공편 가격 * 예약된 좌석 수
     }
-    
-     // 좌석 초기화 메서드
+
+    // 좌석 초기화 메서드
     private void initializeSeats(String type) {
         this.Seats.clear();
         int seatCount = type.equals("국내선") ? 20 : 50;
