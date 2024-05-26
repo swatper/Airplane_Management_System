@@ -7,7 +7,6 @@ package cse.airplane_management_system.ReportSystem;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 /**
  *
  * @author 박규리

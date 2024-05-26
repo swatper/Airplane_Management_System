@@ -4,8 +4,6 @@
  */
 package cse.airplane_management_system.ReportSystem;
 
-import java.io.IOException;
-
 /**
  *
  * @author 박규리

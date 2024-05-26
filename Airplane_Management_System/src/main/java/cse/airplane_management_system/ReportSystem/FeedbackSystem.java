@@ -4,11 +4,13 @@
  */
 package cse.airplane_management_system.ReportSystem;
 
-import java.io.IOException; // 입출력 예외 처리를 위한 클래스 import
-import java.io.PrintWriter; // PrintWriter 클래스 import
-import java.util.Scanner; // 사용자 입력을 받기 위한 클래스 import
-import java.io.FileOutputStream; 
-import java.io.OutputStreamWriter; 
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
 
 /**
  *
@@ -47,17 +49,16 @@ public class FeedbackSystem {
         scanner.close();
     }
 
-    private void saveFeedbackToFile(double satisfaction, String feedback) {
+private void saveFeedbackToFile(double satisfaction, String feedback) {
         String filePath = "feedback.txt";
-        
-        try (PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filePath, true), "UTF-8"))) {
+
+        try (PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filePath, true), StandardCharsets.UTF_8))) {
             printWriter.println("만족도: " + satisfaction);
             printWriter.println("피드백: " + feedback);
             printWriter.println("------------------------------");
         } catch (IOException e) {
             System.out.println("피드백을 저장하는 동안 오류가 발생했습니다.");
-            e.printStackTrace(); // 예외의 상세 정보를 출력하여 문제를 진단하는 데 도움을 줌
+            e.printStackTrace();
         }
     }
 }
-
