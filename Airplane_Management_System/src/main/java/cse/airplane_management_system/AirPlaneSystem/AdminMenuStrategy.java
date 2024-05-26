@@ -35,40 +35,25 @@ public class AdminMenuStrategy implements MenuStrategy {
 
             switch (adminChoice) {
                 case 1:
-                    System.out.print("출발지를 입력하세요: ");
-                    String departure = scanner.nextLine();
-                    System.out.print("도착지를 입력하세요: ");
-                    String arrival = scanner.nextLine();
-                    System.out.print("유형을 입력하세요: ");
-                    String type = scanner.nextLine();
-                    System.out.print("날짜를 입력하세요: ");
-                    String date = scanner.nextLine();
-                    System.out.print("가격을 입력하세요: ");
-                    int price = scanner.nextInt();
-                    scanner.nextLine(); // 버퍼 비우기
-                    System.out.print("항공사명을 입력하세요: ");
-                    String name = scanner.nextLine();
-                    airPlaneSystem.addAirPlane(departure, arrival, type, date, price, name);
+                    airPlaneSystem.addAirPlane(scanner);
                     break;
                 case 2:
                     System.out.print("수정할 항공편의 인덱스를 입력하세요: ");
-                    int indexToUpdate = scanner.nextInt();
-                    scanner.nextLine(); // 버퍼 비우기
+                 int indexToUpdate = scanner.nextInt();
+                 scanner.nextLine(); // 버퍼 비우기
                     System.out.print("새로운 출발지를 입력하세요: ");
                     String newDeparture = scanner.nextLine();
                     System.out.print("새로운 도착지를 입력하세요: ");
                     String newArrival = scanner.nextLine();
-                    System.out.print("새로운 유형을 입력하세요: ");
-                    String newType = scanner.nextLine();
                     System.out.print("새로운 날짜를 입력하세요: ");
                     String newDate = scanner.nextLine();
                     System.out.print("새로운 가격을 입력하세요: ");
                     int newPrice = scanner.nextInt();
                     scanner.nextLine(); // 버퍼 비우기
                     System.out.print("새로운 항공사명을 입력하세요: ");
-                    String newName = scanner.nextLine();
-                    airPlaneSystem.updateAirPlane(indexToUpdate, newDeparture, newArrival, newType, newDate, newPrice, newName);
-                    break;
+                    String newAirline = scanner.nextLine(); // 새로운 항공사명 입력 추가
+                    airPlaneSystem.updateAirPlane(indexToUpdate, newDeparture, newArrival, newAirline, newDate, newPrice);
+    break;
                 case 3:
                     System.out.print("삭제할 항공편의 인덱스를 입력하세요: ");
                     int indexToDelete = scanner.nextInt();

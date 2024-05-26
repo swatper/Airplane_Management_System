@@ -109,13 +109,14 @@ public class FileManager {
                 write.flush();
                 write.close();
                 break;
-            //항공기 시스템
+            // 항공기 시스템
             case 1:
-                File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
-                write = new FileWriter(File_Path, false);
-                ArrayList<AirPlane> airplaneWriter = (ArrayList<AirPlane>) DBList;
+             File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
+             write = new FileWriter(File_Path, false);
+             ArrayList<AirPlane> airplaneWriter = (ArrayList<AirPlane>) DBList;
                 for (AirPlane temp : airplaneWriter) {
-                    writeLine.add(temp.GetDepartures() + ";" + temp.GetArrivals() + ";" + temp.GetTypes() + ";" + temp.GetDates() + "\n");
+                    String type = temp.isDomestic() ? "Domestic" : "International";
+                    writeLine.add(temp.getDepartures() + ";" + temp.getArrivals() + ";" + type + ";" + temp.getDates() + ";" + temp.getPrice() + "\n");
                 }
                 break;
             //예약 시스템

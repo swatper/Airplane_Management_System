@@ -1,6 +1,7 @@
 package cse.airplane_management_system.AirPlaneSystem;
 
 import java.util.ArrayList;
+
 /**
  * 항공편 클래스
  * @author 박상현
@@ -8,90 +9,85 @@ import java.util.ArrayList;
 public class AirPlane {
     private String Departures; // 출발지
     private String Arrivals;   // 도착지
-    private String Types;      // 국내선/국제선 구분
+    private String Airlines;    // 항공사명 
     private String Dates;      // 날짜
+    private boolean isDomestic; // 국내선 국제선 여부
     private int Price;         // 가격
-    private String Name;       // 항공사명
     private ArrayList<Boolean> Seats; // 좌석 정보
-    private int Totalprice; // 항공편 전체 가격 (예약된 좌석 수 * 항공편 가격)
+    private int Totalprice;    // 항공편 전체 가격 (예약된 좌석 수 * 항공편 가격)
+    
 
     // 생성자
-    public AirPlane(String departure, String arrival, String type, String date, int price, String name) {
+    public AirPlane(String departure, String arrival, String airline, String date, boolean isDomestic, int price) {
         this.Departures = departure;
         this.Arrivals = arrival;
-        this.Types = type;
+        this.isDomestic = isDomestic;
         this.Dates = date;
         this.Price = price;
-        this.Name = name;
+        this.Airlines = airline;
         this.Seats = new ArrayList<>();
-        initializeSeats(type);
+        initializeSeats();
         updateTotalPrice();
     }
 
     // getter 및 setter 메서드
-    public String GetDepartures() {
+    public String getDepartures() {
         return Departures;
     }
 
-    public void SetDepartures(String departure) {
+    public void setDepartures(String departure) {
         this.Departures = departure;
     }
 
-    public String GetArrivals() {
+    public String getArrivals() {
         return Arrivals;
     }
 
-    public void SetArrivals(String arrival) {
+    public void setArrivals(String arrival) {
         this.Arrivals = arrival;
     }
 
-    public String GetTypes() {
-        return Types;
-    }
-
-    public void SetTypes(String type) {
-        this.Types = type;
-        initializeSeats(type);
-        updateTotalPrice();
-    }
-
-    public String GetDates() {
+    public String getDates() {
         return Dates;
     }
 
-    public void SetDates(String date) {
+    public void setDates(String date) {
         this.Dates = date;
     }
 
-    public double GetPrice() {
+    public int getPrice() {
         return Price;
     }
 
-    public void SetPrice(int price) {
+    public void setPrice(int price) {
         this.Price = price;
         updateTotalPrice();
     }
 
-    public String GetName() {
-        return Name;
+    public String getAirlines() {
+        return Airlines;
     }
 
-    public void SetName(String name) {
-        this.Name = name;
+    public void setAirlines(String airline) {
+        this.Airlines = airline;
     }
 
-    public ArrayList<Boolean> GetSeats() {
+    public ArrayList<Boolean> getSeats() {
         return Seats;
     }
 
-    public void SetSeats(ArrayList<Boolean> seats) {
+    public void setSeats(ArrayList<Boolean> seats) {
         this.Seats = seats;
         updateTotalPrice();
     }
 
-    public int GetTotalprice() {
+    public int getTotalprice() {
         return Totalprice;
     }
+    
+    public boolean isDomestic() {
+    return isDomestic;
+}
 
     // 전체 가격 업데이트 메서드
     private void updateTotalPrice() {
@@ -105,9 +101,9 @@ public class AirPlane {
     }
 
     // 좌석 초기화 메서드
-    private void initializeSeats(String type) {
+    private void initializeSeats() {
         this.Seats.clear();
-        int seatCount = type.equals("국내선") ? 20 : 50;
+        int seatCount = isDomestic ? 20 : 50;
         for (int i = 0; i < seatCount; i++) {
             this.Seats.add(false);
         }

@@ -1,3 +1,4 @@
+cse\airplane_management_system\AirPlaneSystem\KoreanAirFactory.class
 cse\airplane_management_system\AirPlaneSystem\AirPlaneSystem.class
 cse\airplane_management_system\ReservationSystem\ReservationSystem.class
 cse\airplane_management_system\LoginSystem\UserDB.class
@@ -23,7 +24,9 @@ cse\airplane_management_system\ReservationSystem\CommandController.class
 cse\airplane_management_system\AirPlaneSystem\MenuContext.class
 cse\airplane_management_system\AirPlaneSystem\UserMenuStrategy.class
 cse\airplane_management_system\LoginSystem\User.class
+cse\airplane_management_system\AirPlaneSystem\AsianaAirFactory.class
 cse\airplane_management_system\ReportSystem\ReportSystem.class
 cse\airplane_management_system\ReservationSystem\CommandResearch.class
+cse\airplane_management_system\AirPlaneSystem\JejuAirFactory.class
 cse\airplane_management_system\ReservationSystem\CommandWriter.class
 cse\airplane_management_system\ReservationSystem\ReservationSystem_TestDriver.class
