@@ -18,6 +18,9 @@ public class LoginSystem {
     public Iterator Iter;
     public static LoginSystem loginSystemObject;
     public int targetUserIndex; //Iterator의 반복 횟수를 이용하여 DB의 사용자 Index를 얻을 변수
+    //템플릿 메서드 패턴의 객체
+    public AlgoLogin login;
+    public AlgoAddAccount addAccount;
 
     //생성자(싱글톤 패턴)
     private LoginSystem() {
@@ -43,6 +46,9 @@ public class LoginSystem {
                     temp.split(";")[4], temp.split(";")[5]);
             DB.AddUser(tempUser);
         }
+        //템플릿 메서드 패턴 객체 생성
+        login = new AlgoLogin();
+        addAccount = new AlgoAddAccount();
     }
 
     //Swing으로 아이디 비번 입력받고 해당 값이 객체 배열에 있는지 확인 (스윙쓰면 이 부분 불필요)
@@ -71,14 +77,8 @@ public class LoginSystem {
 
     //로그인 기능 (스윙 필요)
     public void Login() throws IOException {
-        System.out.println("======================================");
-        System.out.print("아이디: ");
-        BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
-        String ID = GetID.readLine();
-        System.out.print("비밀번호: ");
-        BufferedReader GetPassword = new BufferedReader(new InputStreamReader(System.in));
-        String PW = GetPassword.readLine();
-        User loginUser = new User(ID, PW);
+        //템플릿 메서드 객체 사용
+        User loginUser = login.GetUserInput();
 
         //입력한 정보가 로그인 DB에 있는지 확인
         if (FindUser(loginUser)) {
@@ -97,27 +97,12 @@ public class LoginSystem {
     
     //회원가입 기능(스윙 필요)
     public void AddAccount() throws IOException {
-        System.out.println("======================================");
-        System.out.print("아이디: ");
-        BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
-        String ID = GetID.readLine();
-        System.out.print("비밀번호: ");
-        BufferedReader GetPassword = new BufferedReader(new InputStreamReader(System.in));
-        String PW = GetPassword.readLine();
-        System.out.print("이름: ");
-        BufferedReader GetName = new BufferedReader(new InputStreamReader(System.in));
-        String Name = GetName.readLine();
-        System.out.print("나이: ");
-        BufferedReader GetAge = new BufferedReader(new InputStreamReader(System.in));
-        int Age = Integer.parseInt(GetAge.readLine());
-        System.out.print("성별: ");
-        BufferedReader GetGenger = new BufferedReader(new InputStreamReader(System.in));
-        String Gender = GetGenger.readLine();
-        System.out.print("주소: ");
-        BufferedReader GetAddress = new BufferedReader(new InputStreamReader(System.in));
-        String Address = GetAddress.readLine();
-        //저장
-        AddUser(ID, PW, Name, Age, Gender, Address);
+        
+        //템플릿 메서드 패턴 객체 생성 및 배열에 추가
+        DB.AddUser(addAccount.GetUserInput());
+        // 파일에 저장
+        fileManager.writeDBFile(0, DB.GetUserDB());
+        
         System.out.println("회원가입 성공!!");
     }
     
@@ -171,13 +156,6 @@ public class LoginSystem {
             }
         }
         return isUserExist;
-    }
-
-    //고객 추가
-    public void AddUser(String id, String password, String name, int age, String gender, String address) throws IOException {
-        User Temp = new User(id, password, name, age, gender, address);
-        DB.AddUser(Temp);
-        fileManager.writeDBFile(0, DB.GetUserDB());
     }
     
     // 고객 정보 삭제 메서드
