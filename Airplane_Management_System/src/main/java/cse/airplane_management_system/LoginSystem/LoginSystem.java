@@ -93,8 +93,6 @@ public class LoginSystem {
         }
     }
 
-    
-    
     //회원가입 기능(스윙 필요)
     public void AddAccount() throws IOException {
         
