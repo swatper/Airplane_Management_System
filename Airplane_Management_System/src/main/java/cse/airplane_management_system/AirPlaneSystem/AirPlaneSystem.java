@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public class AirPlaneSystem {
     private List<AirPlane> airPlanes; // 모든 항공편 목록
-    private User loginUser; //로그인된 사용자
+    private User loginUser; // 로그인된 사용자
     private ReservationSystem reservationSystem; // 예약 시스템
-    private FileManager fileManager; //파일 매니저
+    private FileManager fileManager; // 파일 매니저
 
     public AirPlaneSystem() throws IOException {
         airPlanes = new ArrayList<>();
@@ -26,7 +26,7 @@ public class AirPlaneSystem {
         List<String> lines = fileManager.readDBFile(1); // 1은 항공기 시스템을 나타냄
         for (String line : lines) {
             String[] parts = line.split(";");
-            if (parts.length == 5) {
+            if (parts.length == 6) { // 수정: 5에서 6으로 변경
                 String departure = parts[0];
                 String arrival = parts[1];
                 String airline = parts[2];
@@ -43,71 +43,44 @@ public class AirPlaneSystem {
             }
         }
     }
-    
+
     // 파일에 항공편 정보 저장
     public void saveToFile() throws IOException {
         fileManager.writeDBFile(1, airPlanes); // 1은 항공기 시스템을 나타냄
-    }   
+    }
 
     // 새로운 항공편 추가 메서드
-   public void addAirPlane(Scanner scanner) {
-    AirPlaneFactory factory;
-    System.out.println("항공사를 선택하세요:");
-    System.out.println("1. 대한 항공");
-    System.out.println("2. 아시아나 항공");
-    System.out.println("3. 제주 항공");
-    System.out.print("선택: ");
-    int choice = scanner.nextInt();
-    scanner.nextLine(); // 버퍼 비우기
+    public void addAirPlane(String departure, String arrival, String type, String airline, String date, int price) {
+        AirPlaneFactory factory;
+        switch (airline) {
+            case "대한 항공":
+                factory = new KoreanAirFactory();
+                break;
+            case "아시아나 항공":
+                factory = new AsianaAirFactory();
+                break;
+            case "제주 항공":
+                factory = new JejuAirFactory();
+                break;
+            default:
+                System.out.println("잘못된 항공사입니다.");
+                return;
+        }
 
-    switch (choice) {
-        case 1:
-            factory = new KoreanAirFactory();
-            break;
-        case 2:
-            factory = new AsianaAirFactory();
-            break;
-        case 3:
-            factory = new JejuAirFactory();
-            break;
-        default:
-            System.out.println("잘못된 선택입니다.");
+        AirPlane airPlane;
+        if (type.equalsIgnoreCase("Domestic")) {
+            airPlane = factory.createDomesticAirPlane(departure, arrival, date, price);
+        } else if (type.equalsIgnoreCase("International")) {
+            airPlane = factory.createInternationalAirPlane(departure, arrival, date, price);
+        } else {
+            System.out.println("잘못된 항공편 유형입니다.");
             return;
+        }
+
+        airPlanes.add(airPlane);
+        System.out.println("새로운 항공편이 추가되었습니다.");
     }
 
-    System.out.print("항공편 유형을 입력하세요 (Domestic/International): ");
-    String type = scanner.nextLine();
-
-    System.out.print("출발지를 입력하세요: ");
-    String departure = scanner.nextLine();
-    System.out.print("도착지를 입력하세요: ");
-    String arrival = scanner.nextLine();
-    System.out.print("날짜를 입력하세요: ");
-    String date = scanner.nextLine();
-    System.out.print("가격을 입력하세요: ");
-    int price = scanner.nextInt();
-    scanner.nextLine(); // 버퍼 비우기
-
-    AirPlane airPlane;
-    if (type.equalsIgnoreCase("Domestic")) {
-        airPlane = factory.createDomesticAirPlane(departure, arrival, date, price);
-    } else if (type.equalsIgnoreCase("International")) {
-        airPlane = factory.createInternationalAirPlane(departure, arrival, date, price);
-    } else {
-        System.out.println("잘못된 항공편 유형입니다.");
-        return;
-    }
-
-    airPlanes.add(airPlane);
-    System.out.println("새로운 항공편이 추가되었습니다.");
-    try {
-        saveToFile();
-    } catch (IOException e) {
-        System.out.println("파일에 변경 내용을 저장하는 중 오류가 발생했습니다: " + e.getMessage());
-    }
-}
-
-   
     // 모든 항공편 정보 출력 메서드
     public void printAllAirPlanes() {
         if (airPlanes.isEmpty()) {
@@ -122,7 +95,7 @@ public class AirPlaneSystem {
         System.out.println("국제선 항공편 목록:");
         printInternationalAirPlanes();
     }
-    
+
     // 국내선 항공편 정보 출력 메서드
     public void printDomesticAirPlanes() {
         if (airPlanes.isEmpty()) {
@@ -141,7 +114,7 @@ public class AirPlaneSystem {
             }
         }
     }
-    
+
     // 국제선 항공편 정보 출력 메서드
     public void printInternationalAirPlanes() {
         if (airPlanes.isEmpty()) {
@@ -171,14 +144,9 @@ public class AirPlaneSystem {
             airPlane.setDates(date);
             airPlane.setPrice(price);
             System.out.println("항공편 정보가 수정되었습니다.");
-            try {
-            saveToFile();
-        } catch (IOException e) {
-            System.out.println("파일에 변경 내용을 저장하는 중 오류가 발생했습니다: " + e.getMessage());
+        } else {
+            System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
         }
-    } else {
-        System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
-    }
     }
 
     // 항공편 삭제 메서드
@@ -186,15 +154,10 @@ public class AirPlaneSystem {
         if (index >= 0 && index < airPlanes.size()) {
             airPlanes.remove(index);
             System.out.println("항공편이 삭제되었습니다.");
-        try {
-            saveToFile();
-        } catch (IOException e) {
-            System.out.println("파일에 변경 내용을 저장하는 중 오류가 발생했습니다: " + e.getMessage());
+        } else {
+            System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
         }
-    } else {
-        System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
     }
-}
 
     // 실행 메서드
     public void RunSystem(User GetUser) throws IOException {
