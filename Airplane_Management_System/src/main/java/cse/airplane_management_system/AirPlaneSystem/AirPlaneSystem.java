@@ -19,7 +19,13 @@ public class AirPlaneSystem {
         this.fileManager = new FileManager();
         this.reservationSystem = ReservationSystem.GetSystem(loginUser);
         reservationSystem.Init();
+        
+        try {
+        loadFromFile(); // 프로그램 시작 시 파일에서 정보를 읽어옴
+    } catch (IOException e) {
+        System.out.println("파일에서 정보를 읽어오는 동안 오류가 발생했습니다: " + e.getMessage());
     }
+}
 
     // 파일에서 항공편 정보 읽기
     public void loadFromFile() throws IOException {
@@ -140,25 +146,35 @@ public class AirPlaneSystem {
     }
 
     // 항공편 수정 메서드
-    public void updateAirPlane(int index, String departure, String arrival, String airline, String date, int price) {
-        if (index >= 0 && index < airPlanes.size()) {
-            AirPlane airPlane = airPlanes.get(index);
-            airPlane.setDepartures(departure);
-            airPlane.setArrivals(arrival);
-            airPlane.setAirlines(airline);
-            airPlane.setDates(date);
-            airPlane.setPrice(price);
-            System.out.println("항공편 정보가 수정되었습니다.");
-        } else {
-            System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
+    public void updateAirPlane(int index, String departure, String arrival, String airline, String date, int newPrice) {
+    if (index >= 0 && index < airPlanes.size()) {
+        AirPlane airPlane = airPlanes.get(index);
+        airPlane.setDepartures(departure);
+        airPlane.setArrivals(arrival);
+        airPlane.setAirlines(airline);
+        airPlane.setDates(date);
+        airPlane.setPrice(newPrice); // 새로운 가격 설정
+        System.out.println("항공편 정보가 수정되었습니다.");
+        try {
+            saveToFile(); // 수정된 정보를 파일에 저장
+        } catch (IOException e) {
+            System.out.println("파일에 저장하는 동안 오류가 발생했습니다: " + e.getMessage());
         }
+    } else {
+        System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
     }
+}
 
     // 항공편 삭제 메서드
     public void deleteAirPlane(int index) {
         if (index >= 0 && index < airPlanes.size()) {
             airPlanes.remove(index);
             System.out.println("항공편이 삭제되었습니다.");
+            try {
+            saveToFile(); // 삭제된 정보를 파일에 저장
+        } catch (IOException e) {
+            System.out.println("파일에 저장하는 동안 오류가 발생했습니다: " + e.getMessage());
+        }
         } else {
             System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
         }
