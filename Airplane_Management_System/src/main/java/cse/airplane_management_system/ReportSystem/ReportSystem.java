@@ -12,6 +12,12 @@ import java.io.InputStreamReader;
  * @author 박규리
  */
 public class ReportSystem {
+    private ReportFactory reportFactory;
+
+    public ReportSystem() {
+        this.reportFactory = new ReportFactory();
+    }
+
     public void runSystem() {
         try (BufferedReader getMenu = new BufferedReader(new InputStreamReader(System.in))) {
             boolean running = true;
@@ -45,8 +51,11 @@ public class ReportSystem {
     }
 
     public void generateReport(String reportType) {
-        Report report = ReportFactory.createReport(reportType);
-        report.generateReport();
+        Report report = reportFactory.createReport(reportType);
+        if (report != null) {
+            report.generateReport();
+        } else {
+            System.out.println("잘못된 리포트 타입입니다.");
+        }
     }
 }
-

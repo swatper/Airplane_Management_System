@@ -6,7 +6,6 @@ package cse.airplane_management_system.ReportSystem;
 
 /**
  *
- * @author 박상현
  * @author 박규리
  */
 public interface Report {

@@ -9,7 +9,7 @@ package cse.airplane_management_system.ReportSystem;
  * @author 박규리
  */
 public class ReportFactory {
-    public static Report createReport(String reportType) {
+    public Report createReport(String reportType) {
         switch (reportType) {
             case "Sales":
                 return new SalesReport();
@@ -18,7 +18,7 @@ public class ReportFactory {
             case "Feedback":
                 return new FeedbackReport();
             default:
-                throw new IllegalArgumentException("Unknown report type: " + reportType);
+                return null;
         }
     }
 }
