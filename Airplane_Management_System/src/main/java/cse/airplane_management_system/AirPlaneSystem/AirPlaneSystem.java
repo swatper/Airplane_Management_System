@@ -79,6 +79,11 @@ public class AirPlaneSystem {
 
         airPlanes.add(airPlane);
         System.out.println("새로운 항공편이 추가되었습니다.");
+        try {           //파일에 저장
+            saveToFile();
+        } catch (IOException e) {
+            System.out.println("파일에 저장하는 동안 오류가 발생했습니다: " + e.getMessage());
+        }
     }
 
     // 모든 항공편 정보 출력 메서드

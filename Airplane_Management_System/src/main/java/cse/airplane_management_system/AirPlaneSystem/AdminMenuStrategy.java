@@ -34,56 +34,56 @@ public class AdminMenuStrategy implements MenuStrategy {
             scanner.nextLine(); // 버퍼 비우기
 
                 switch (adminChoice) {
-                case 1:   
+                    case 1:
                 System.out.println("항공편 유형을 선택하세요");
-                System.out.println("1. 국내선");
-                System.out.println("2. 국제선");
-                System.out.print("선택: ");
-                int typeChoice = scanner.nextInt();
-                scanner.nextLine(); // 버퍼 비우기
+                    System.out.println("1. 국내선");
+                    System.out.println("2. 국제선");
+                    System.out.print("선택: ");
+                    int typeChoice = scanner.nextInt();
+                    scanner.nextLine(); // 버퍼 비우기
 
-                String type;
-                if (typeChoice == 1) {
-                    type = "Domestic";
-                } else if (typeChoice == 2) {
-                    type = "International";
-                } else {
-                    System.out.println("잘못된 선택입니다.");
+                    String type;
+                    if (typeChoice == 1) {
+                        type = "Domestic";
+                    } else if (typeChoice == 2) {
+                        type = "International";
+                    } else {
+                        System.out.println("잘못된 선택입니다.");
+                        break;
+                    }
+
+                    System.out.println("항공사를 선택하세요:");
+                    System.out.println("1. 대한 항공");
+                    System.out.println("2. 아시아나 항공");
+                    System.out.println("3. 제주 항공");
+                    System.out.print("선택: ");
+                    int airlineChoice = scanner.nextInt();
+                    scanner.nextLine(); // 버퍼 비우기
+
+                    String airline;
+                    if (airlineChoice == 1) {
+                        airline = "대한 항공";
+                    } else if (airlineChoice == 2) {
+                        airline = "아시아나 항공";
+                    } else if (airlineChoice == 3) {
+                        airline = "제주 항공";
+                    } else {
+                        System.out.println("잘못된 선택입니다.");
+                        break;
+                    }
+
+                    System.out.print("출발지를 입력하세요: ");
+                    String departure = scanner.nextLine();
+                    System.out.print("도착지를 입력하세요: ");
+                    String arrival = scanner.nextLine();
+                    System.out.print("날짜를 입력하세요: ");
+                    String date = scanner.nextLine();
+                    System.out.print("가격을 입력하세요: ");
+                    int price = scanner.nextInt();
+                    scanner.nextLine(); // 버퍼 비우기
+
+                    airPlaneSystem.addAirPlane(departure, arrival, type, airline, date, price);
                     break;
-                }
-
-                System.out.println("항공사를 선택하세요:");
-                System.out.println("1. 대한 항공");
-                System.out.println("2. 아시아나 항공");
-                System.out.println("3. 제주 항공");
-                System.out.print("선택: ");
-                int airlineChoice = scanner.nextInt();
-                scanner.nextLine(); // 버퍼 비우기
-
-                String airline;
-                if (airlineChoice == 1) {
-                    airline = "대한 항공";
-                } else if (airlineChoice == 2) {
-                    airline = "아시아나 항공";
-                } else if (airlineChoice == 3) {
-                    airline = "제주 항공";
-                } else {
-                    System.out.println("잘못된 선택입니다.");
-                    break;
-                }
-
-                System.out.print("출발지를 입력하세요: ");
-                String departure = scanner.nextLine();
-                System.out.print("도착지를 입력하세요: ");
-                String arrival = scanner.nextLine();
-                System.out.print("날짜를 입력하세요: ");
-                String date = scanner.nextLine();
-                System.out.print("가격을 입력하세요: ");
-                int price = scanner.nextInt();
-                scanner.nextLine(); // 버퍼 비우기
-
-                addAirPlane(departure, arrival, type, airline, date, price);
-        break;
                 case 2:
                     System.out.print("수정할 항공편의 인덱스를 입력하세요: ");
                  int indexToUpdate = scanner.nextInt();
