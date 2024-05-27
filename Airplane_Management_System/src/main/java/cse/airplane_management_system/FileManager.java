@@ -2,12 +2,13 @@ package cse.airplane_management_system;
 
 import cse.airplane_management_system.LoginSystem.User;
 import cse.airplane_management_system.ReservationSystem.Reservation;
+import cse.airplane_management_system.AirPlaneSystem.AirPlane;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 
 /**
  * @author 박상현
@@ -108,8 +109,21 @@ public class FileManager {
                 write.flush();
                 write.close();
                 break;
-            //항공기 시스템
+            // 항공기 시스템
             case 1:
+             File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
+             write = new FileWriter(File_Path, false);
+             ArrayList<AirPlane> airplaneWriter = (ArrayList<AirPlane>) DBList;
+                for (AirPlane temp : airplaneWriter) {
+                    String type = temp.isDomestic() ? "Domestic" : "International";
+                    writeLine.add(temp.getDepartures() + ";" + temp.getArrivals() + ";" + temp.getAirlines() + ";"+type + ";" + temp.getDates() + ";" + temp.getPrice() + "\n");
+                }
+                //파일에 저장
+                for (String writeContext : writeLine) {
+                    write.write(writeContext);
+                }
+                write.flush();
+                write.close();
                 break;
             //예약 시스템
             case 2:
@@ -125,6 +139,7 @@ public class FileManager {
                 for (String writeContext : writeLine) {
                     write.write(writeContext);
                 }
+                
                 write.flush();
                 write.close();
                 break;
