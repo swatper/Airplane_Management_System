@@ -62,7 +62,7 @@ public class AirPlaneSystem {
     }
 
     // 새로운 항공편 추가 메서드
-    public void addAirPlane(String departure, String arrival, String type, String airline, String date, int price) {
+    public void addAirPlane(String departure, String arrival, String type, String airline, String date) {
         //팩토리 패턴
         AirPlaneFactory factory;
         switch (airline) {
@@ -82,9 +82,9 @@ public class AirPlaneSystem {
 
         AirPlane airPlane;
         if (type.equalsIgnoreCase("Domestic")) {
-            airPlane = factory.createDomesticAirPlane(departure, arrival, date, price);
+            airPlane = factory.createDomesticAirPlane(departure, arrival, date);
         } else if (type.equalsIgnoreCase("International")) {
-            airPlane = factory.createInternationalAirPlane(departure, arrival, date, price);
+            airPlane = factory.createInternationalAirPlane(departure, arrival, date);
         } else {
             System.out.println("잘못된 항공편 유형입니다.");
             return;
@@ -126,8 +126,7 @@ public class AirPlaneSystem {
                 System.out.println(domesticAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
                         ", 도착지: " + airPlane.getArrivals() +
                         ", 항공사: " + airPlane.getAirlines() +
-                        ", 날짜: " + airPlane.getDates() +
-                        ", 가격: " + airPlane.getPrice());
+                        ", 날짜: " + airPlane.getDates());
                 domesticAirplaneIndex++;
             }
         }
@@ -145,8 +144,7 @@ public class AirPlaneSystem {
                 System.out.println(internationalAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
                         ", 도착지: " + airPlane.getArrivals() +
                         ", 항공사: " + airPlane.getAirlines() +
-                        ", 날짜: " + airPlane.getDates() +
-                        ", 가격: " + airPlane.getPrice());
+                        ", 날짜: " + airPlane.getDates());
                 internationalAirplaneIndex++;
             }
         }

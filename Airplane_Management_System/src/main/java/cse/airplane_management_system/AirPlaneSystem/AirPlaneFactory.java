@@ -10,7 +10,7 @@ package cse.airplane_management_system.AirPlaneSystem;
  */
 // 추상 팩토리 클래스
 public interface AirPlaneFactory {
-    AirPlane createDomesticAirPlane(String departure, String arrival, String date, int price);
-    AirPlane createInternationalAirPlane(String departure, String arrival, String date, int price);
+    AirPlane createDomesticAirPlane(String departure, String arrival, String date);
+    AirPlane createInternationalAirPlane(String departure, String arrival, String date);
 }
 

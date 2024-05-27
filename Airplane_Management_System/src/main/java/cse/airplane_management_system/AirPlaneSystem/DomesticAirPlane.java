@@ -10,7 +10,10 @@ package cse.airplane_management_system.AirPlaneSystem;
  */
 public class DomesticAirPlane extends AirPlane {
     // DomesticAirPlane 생성자
-    public DomesticAirPlane(String departure, String arrival, String airline, String date, int price) {
+    public DomesticAirPlane(String departure, String arrival, String airline, String date) {
+        super(departure, arrival, airline, date, true);
+    }
+     public DomesticAirPlane(String departure, String arrival, String airline, String date, int price) {
         super(departure, arrival, airline, date, true, price);
     }
 

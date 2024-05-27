@@ -11,12 +11,12 @@ package cse.airplane_management_system.AirPlaneSystem;
 public class KoreanAirFactory implements AirPlaneFactory {
     
     @Override
-    public AirPlane createDomesticAirPlane(String departure, String arrival, String date, int price) {
-        return new DomesticAirPlane(departure, arrival, "Korean Air", date, price);
+    public AirPlane createDomesticAirPlane(String departure, String arrival, String date) {
+        return new DomesticAirPlane(departure, arrival, "Korean Air", date);
     }
 
     @Override
-    public AirPlane createInternationalAirPlane(String departure, String arrival, String date, int price) {
-        return new InternationalAirPlane(departure, arrival, "Korean Air", date, price);
+    public AirPlane createInternationalAirPlane(String departure, String arrival, String date) {
+        return new InternationalAirPlane(departure, arrival, "Korean Air", date);
     }
 }

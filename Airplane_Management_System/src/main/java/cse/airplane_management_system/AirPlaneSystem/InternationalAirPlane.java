@@ -10,7 +10,10 @@ package cse.airplane_management_system.AirPlaneSystem;
  */
 public class InternationalAirPlane extends AirPlane {
     // InternationalAirPlane 생성자
-    public InternationalAirPlane(String departure, String arrival, String airline, String date, int price) {
+    public InternationalAirPlane(String departure, String arrival, String airline, String date) {
+        super(departure, arrival, airline, date, false);
+    }
+     public InternationalAirPlane(String departure, String arrival, String airline, String date, int price) {
         super(departure, arrival, airline, date, false, price);
     }
 

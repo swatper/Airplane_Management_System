@@ -78,11 +78,9 @@ public class AdminMenuStrategy implements MenuStrategy {
                     String arrival = scanner.nextLine();
                     System.out.print("날짜를 입력하세요: ");
                     String date = scanner.nextLine();
-                    System.out.print("가격을 입력하세요: ");
-                    int price = scanner.nextInt();
                     scanner.nextLine(); // 버퍼 비우기
 
-                    airPlaneSystem.addAirPlane(departure, arrival, type, airline, date, price);
+                    airPlaneSystem.addAirPlane(departure, arrival, type, airline, date);
                     break;
 
                 case 2:
