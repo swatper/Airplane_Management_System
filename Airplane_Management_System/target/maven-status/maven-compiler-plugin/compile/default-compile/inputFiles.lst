@@ -1,5 +1,6 @@
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\CommandController.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\Command.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\KoreanAirFactory.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\LoginSystem\User.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\CommandResearch.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\LoginSystem\AlgoLogin.java
@@ -8,17 +9,25 @@ C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Ma
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\ReservationSystem_TestDriver.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReportSystem\Report.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\LoginSystem\AlgoUserInfoInput.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\InternationalAirPlane.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\LoginSystem\AlgoAddAccount.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\LoginSystem\UserDB.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\LoginSystem\UserDBIterator.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\AsianaAirFactory.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\FileManager.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\AdminMenuStrategy.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\Airplane_Management_System.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\AirPlaneFactory.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\CommandWrite.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\AirPlane.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReportSystem\ReportSystem.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\DomesticAirPlane.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\MenuStrategy.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\Reservation.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\ReservationDBIterator.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\LoginSystem\LoginTestDriver.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\MenuContext.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\UserMenuStrategy.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\ReservationSystem.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\ReservationDB.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlane_Management_System_TestDriver.java
@@ -26,3 +35,4 @@ C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Ma
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\LoginSystem\LoginSystem.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\ReservationSystem\CommandWriter.java
 C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\AirPlaneSystem.java
+C:\Users\박상현\OneDrive\바탕 화면\GitHub\Airplane_Management_System\Airplane_Management_System\src\main\java\cse\airplane_management_system\AirPlaneSystem\JejuAirFactory.java

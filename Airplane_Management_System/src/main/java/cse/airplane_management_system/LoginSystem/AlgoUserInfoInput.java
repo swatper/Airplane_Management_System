@@ -40,6 +40,4 @@ public abstract class AlgoUserInfoInput {
     
     //추가 정보 입력 받고 TargetUser객체 만드는 메서드
     abstract  void OtherInfoInput();
-    
-    
 }

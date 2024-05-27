@@ -3,12 +3,14 @@ package cse.airplane_management_system.AirPlaneSystem;
 import cse.airplane_management_system.FileManager;
 import cse.airplane_management_system.LoginSystem.User;
 import cse.airplane_management_system.ReservationSystem.ReservationSystem;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class AirPlaneSystem {
+
     private List<AirPlane> airPlanes; // 모든 항공편 목록
     private User loginUser; // 로그인된 사용자
     private ReservationSystem reservationSystem; // 예약 시스템
@@ -17,15 +19,13 @@ public class AirPlaneSystem {
     public AirPlaneSystem() throws IOException {
         airPlanes = new ArrayList<>();
         this.fileManager = new FileManager();
-        this.reservationSystem = ReservationSystem.GetSystem(loginUser);
-        reservationSystem.Init();
-        
+
         try {
-        loadFromFile(); // 프로그램 시작 시 파일에서 정보를 읽어옴
-    } catch (IOException e) {
-        System.out.println("파일에서 정보를 읽어오는 동안 오류가 발생했습니다: " + e.getMessage());
+            loadFromFile(); // 프로그램 시작 시 파일에서 정보를 읽어옴
+        } catch (IOException e) {
+            System.out.println("파일에서 정보를 읽어오는 동안 오류가 발생했습니다: " + e.getMessage());
+        }
     }
-}
 
     // 파일에서 항공편 정보 읽기
     public void loadFromFile() throws IOException {
@@ -36,11 +36,11 @@ public class AirPlaneSystem {
                 String departure = parts[0];
                 String arrival = parts[1];
                 String airline = parts[2];
-                String date = parts[3];
-                boolean isDomestic = parts[4].equals("Domestic");
+                boolean isDomestic = parts[3].equals("Domestic");
+                String date = parts[4];
                 int price = Integer.parseInt(parts[5]);
-                
-                AirPlane airPlane;                
+
+                AirPlane airPlane;
                 if (isDomestic) {
                     airPlane = new DomesticAirPlane(departure, arrival, airline, date, price);
                     System.out.println("국내선 객체 생성 및 배열에 추가");
@@ -49,9 +49,8 @@ public class AirPlaneSystem {
                     System.out.println("국제선 객체 생성 및 배열에 추가");
                 }
                 airPlanes.add(airPlane);
-            }
-            else{
-                        System.out.println("객체 생성 실패");
+            } else {
+                System.out.println("객체 생성 실패");
             }
         }
     }
@@ -123,10 +122,10 @@ public class AirPlaneSystem {
         int domesticAirplaneIndex = 1;
         for (AirPlane airPlane : airPlanes) {
             if (airPlane.isDomestic()) {
-                System.out.println(domesticAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
-                        ", 도착지: " + airPlane.getArrivals() +
-                        ", 항공사: " + airPlane.getAirlines() +
-                        ", 날짜: " + airPlane.getDates());
+                System.out.println(domesticAirplaneIndex + ". 출발지: " + airPlane.getDepartures()
+                        + ", 도착지: " + airPlane.getArrivals()
+                        + ", 항공사: " + airPlane.getAirlines()
+                        + ", 날짜: " + airPlane.getDates());
                 domesticAirplaneIndex++;
             }
         }
@@ -141,10 +140,10 @@ public class AirPlaneSystem {
         int internationalAirplaneIndex = 1;
         for (AirPlane airPlane : airPlanes) {
             if (!airPlane.isDomestic()) {
-                System.out.println(internationalAirplaneIndex + ". 출발지: " + airPlane.getDepartures() +
-                        ", 도착지: " + airPlane.getArrivals() +
-                        ", 항공사: " + airPlane.getAirlines() +
-                        ", 날짜: " + airPlane.getDates());
+                System.out.println(internationalAirplaneIndex + ". 출발지: " + airPlane.getDepartures()
+                        + ", 도착지: " + airPlane.getArrivals()
+                        + ", 항공사: " + airPlane.getAirlines()
+                        + ", 날짜: " + airPlane.getDates());
                 internationalAirplaneIndex++;
             }
         }
@@ -152,23 +151,23 @@ public class AirPlaneSystem {
 
     // 항공편 수정 메서드
     public void updateAirPlane(int index, String departure, String arrival, String airline, String date, int newPrice) {
-    if (index >= 0 && index < airPlanes.size()) {
-        AirPlane airPlane = airPlanes.get(index);
-        airPlane.setDepartures(departure);
-        airPlane.setArrivals(arrival);
-        airPlane.setAirlines(airline);
-        airPlane.setDates(date);
-        airPlane.setPrice(newPrice); // 새로운 가격 설정
-        System.out.println("항공편 정보가 수정되었습니다.");
-        try {
-            saveToFile(); // 수정된 정보를 파일에 저장
-        } catch (IOException e) {
-            System.out.println("파일에 저장하는 동안 오류가 발생했습니다: " + e.getMessage());
+        if (index >= 0 && index < airPlanes.size()) {
+            AirPlane airPlane = airPlanes.get(index);
+            airPlane.setDepartures(departure);
+            airPlane.setArrivals(arrival);
+            airPlane.setAirlines(airline);
+            airPlane.setDates(date);
+            airPlane.setPrice(newPrice); // 새로운 가격 설정
+            System.out.println("항공편 정보가 수정되었습니다.");
+            try {
+                saveToFile(); // 수정된 정보를 파일에 저장
+            } catch (IOException e) {
+                System.out.println("파일에 저장하는 동안 오류가 발생했습니다: " + e.getMessage());
+            }
+        } else {
+            System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
         }
-    } else {
-        System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
     }
-}
 
     // 항공편 삭제 메서드
     public void deleteAirPlane(int index) {
@@ -176,10 +175,10 @@ public class AirPlaneSystem {
             airPlanes.remove(index);
             System.out.println("항공편이 삭제되었습니다.");
             try {
-            saveToFile(); // 삭제된 정보를 파일에 저장
-        } catch (IOException e) {
-            System.out.println("파일에 저장하는 동안 오류가 발생했습니다: " + e.getMessage());
-        }
+                saveToFile(); // 삭제된 정보를 파일에 저장
+            } catch (IOException e) {
+                System.out.println("파일에 저장하는 동안 오류가 발생했습니다: " + e.getMessage());
+            }
         } else {
             System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
         }
@@ -188,20 +187,41 @@ public class AirPlaneSystem {
     // 실행 메서드
     public void RunSystem(User GetUser) throws IOException {
         this.loginUser = GetUser;
+        this.reservationSystem = ReservationSystem.GetSystem(loginUser);
+        reservationSystem.Init();
         MenuContext menuContext = new MenuContext();
-
+        
+        //전략 패턴: 일반 사용자, 관리자의 서로 다른 메뉴
         if (loginUser.isAdmin()) {
             menuContext.setStrategy(new AdminMenuStrategy(this));
         } else {
             menuContext.setStrategy(new UserMenuStrategy(this));
         }
-
+        //메뉴 내용 불러오기
         menuContext.executeStrategy();
+        
+        //매출 변화 파일에 저장
+        saveToFile();
+    }
+
+    //항공편 선택 받아서 예약 시스템에게 넘기기
+    public void StartReservate() throws IOException {
+        while (true) {
+            System.out.println("원하시는 항공편의 인덱스를 입력하세요");
+            BufferedReader getAirlineIndex = new BufferedReader(new InputStreamReader(System.in));
+            int airplaneIndex = Integer.parseInt(getAirlineIndex.readLine()) - 1;
+            //잘못된 값 방지
+            if (airplaneIndex > airPlanes.size()) {
+                System.out.println("잘못된 값을 입력하였습니다. ");
+            } else {
+                reservationSystem.RunSystem(airPlanes.get(airplaneIndex));
+            }
+        }
     }
 }
 
-    // 전략패턴 적용 전  기존 실행 메서드
-    /* 
+// 전략패턴 적용 전  기존 실행 메서드
+/* 
     public void RunSystem(User GetUser) throws IOException {
     this.loginUser = GetUser;
     Scanner scanner = new Scanner(System.in);
@@ -300,4 +320,4 @@ public class AirPlaneSystem {
             }
         }
     } 
-*/                    
+ */
