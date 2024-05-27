@@ -116,8 +116,14 @@ public class FileManager {
              ArrayList<AirPlane> airplaneWriter = (ArrayList<AirPlane>) DBList;
                 for (AirPlane temp : airplaneWriter) {
                     String type = temp.isDomestic() ? "Domestic" : "International";
-                    writeLine.add(temp.getDepartures() + ";" + temp.getArrivals() + ";" + type + ";" + temp.getDates() + ";" + temp.getPrice() + "\n");
+                    writeLine.add(temp.getDepartures() + ";" + temp.getArrivals() + ";" + temp.getAirlines() + ";"+type + ";" + temp.getDates() + ";" + temp.getPrice() + "\n");
                 }
+                //파일에 저장
+                for (String writeContext : writeLine) {
+                    write.write(writeContext);
+                }
+                write.flush();
+                write.close();
                 break;
             //예약 시스템
             case 2:

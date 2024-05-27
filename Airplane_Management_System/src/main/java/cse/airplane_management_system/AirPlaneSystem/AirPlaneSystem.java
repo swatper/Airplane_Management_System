@@ -37,15 +37,21 @@ public class AirPlaneSystem {
                 String arrival = parts[1];
                 String airline = parts[2];
                 String date = parts[3];
-                int price = Integer.parseInt(parts[4]);
-                boolean isDomestic = Boolean.parseBoolean(parts[5]);
-                AirPlane airPlane;
+                boolean isDomestic = parts[4].equals("Domestic");
+                int price = Integer.parseInt(parts[5]);
+                
+                AirPlane airPlane;                
                 if (isDomestic) {
                     airPlane = new DomesticAirPlane(departure, arrival, airline, date, price);
+                    System.out.println("국내선 객체 생성 및 배열에 추가");
                 } else {
                     airPlane = new InternationalAirPlane(departure, arrival, airline, date, price);
+                    System.out.println("국제선 객체 생성 및 배열에 추가");
                 }
                 airPlanes.add(airPlane);
+            }
+            else{
+                        System.out.println("객체 생성 실패");
             }
         }
     }
@@ -57,6 +63,7 @@ public class AirPlaneSystem {
 
     // 새로운 항공편 추가 메서드
     public void addAirPlane(String departure, String arrival, String type, String airline, String date, int price) {
+        //팩토리 패턴
         AirPlaneFactory factory;
         switch (airline) {
             case "대한 항공":
