@@ -42,6 +42,11 @@ public class ReservationSystem {
         }
         return reservationSystem;
     }
+    
+    //DB정보 가져오기(보고서 시스템에서 예약 현황 확인할 때 사용할 객체 배열)
+    public ReservationDB GetReservationDB(){
+        return DB;
+    }
 
     //시스템 초기화 작업
     public void Init() throws IOException {
