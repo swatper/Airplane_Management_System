@@ -27,7 +27,8 @@ public class UserMenuStrategy implements MenuStrategy {
             System.out.println("======================================");
             System.out.println("사용자 메뉴");
             System.out.println("1. 모든 항공편 조회");
-            System.out.println("2. 메인 메뉴로 돌아가기");
+            System.out.println("2. 예약하기");
+            System.out.println("3. 메인 메뉴로 돌아가기");
             System.out.print("메뉴를 선택하세요: ");
             int userChoice = scanner.nextInt();
             scanner.nextLine(); // 버퍼 비우기
@@ -37,6 +38,9 @@ public class UserMenuStrategy implements MenuStrategy {
                     airPlaneSystem.printAllAirPlanes();
                     break;
                 case 2:
+                    airPlaneSystem.StartReservate();
+                    break;
+                case 3:
                     return;
                 default:
                     System.out.println("잘못된 선택입니다. 다시 선택해주세요.");

@@ -1,0 +1,2 @@
+울산;부산;Korean Air;Domestic;2023-05-10;0
+울산;부산;Jeju Air;International;2023-11-11;0

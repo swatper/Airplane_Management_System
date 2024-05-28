@@ -109,14 +109,21 @@ public class FileManager {
                 write.flush();
                 write.close();
                 break;
-            //항공기 시스템
+            // 항공기 시스템
             case 1:
-                File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
-                write = new FileWriter(File_Path, false);
-                ArrayList<AirPlane> airplaneWriter = (ArrayList<AirPlane>) DBList;
+             File_Path = System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\AirPlaneSystem\\Airplane.txt";
+             write = new FileWriter(File_Path, false);
+             ArrayList<AirPlane> airplaneWriter = (ArrayList<AirPlane>) DBList;
                 for (AirPlane temp : airplaneWriter) {
-                    writeLine.add(temp.GetDepartures() + ";" + temp.GetArrivals() + ";" + temp.GetTypes() + ";" + temp.GetDates() + "\n");
+                    String type = temp.isDomestic() ? "Domestic" : "International";
+                    writeLine.add(temp.getDepartures() + ";" + temp.getArrivals() + ";" + temp.getAirlines() + ";"+type + ";" + temp.getDates() + ";" + temp.getPrice() + "\n");
                 }
+                //파일에 저장
+                for (String writeContext : writeLine) {
+                    write.write(writeContext);
+                }
+                write.flush();
+                write.close();
                 break;
             //예약 시스템
             case 2:
@@ -125,7 +132,7 @@ public class FileManager {
                 ArrayList<Reservation> reservationWriter = (ArrayList<Reservation>) DBList;
                 for (Reservation temp : reservationWriter) {
                     //객체 정보 직렬화
-                    writeLine.add(temp.GetBookedAirline() + ";" + temp.GetBookedUserID() + ";"+ temp.GetBookedUserName() + ";" + 
+                    writeLine.add(temp.GetBookedAirline() +";" + temp.GetBookedAirlineDate()+";" + temp.GetBookedUserID() + ";"+ temp.GetBookedUserName() + ";" + 
                             temp.GetPhoneNumber() + ";" + temp.GetBookedSeatNum()+ "\n");
                 }
                 //파일에 저장

@@ -13,26 +13,15 @@ public class Airplane_Management_System {
     public User LoginUser;
     public LoginSystem loginSystem;
     public AirPlaneSystem airPlaneSystem;
-
-    /*
-    public AirplaneSystem  airplaneSystem;
-    public ReservaionSystem reservationSystem;
-    public ReportSystem reportSystem;
-     */
-
+    
+    //생성자
     public Airplane_Management_System() {
-    }
-
-    ;
+    };
     
     //각 시스템 객체 생성
     public void Init() throws IOException {
         loginSystem = LoginSystem.GetSystem();
-        airPlaneSystem = new AirPlaneSystem();
-        
-        /*
-        reportSystem = new ReportSystem();
-         */
+        airPlaneSystem = new AirPlaneSystem();   
     }
 
     //로그인 시스템 실행
@@ -40,10 +29,11 @@ public class Airplane_Management_System {
         //로그인 시스템
         loginSystem.Init();
         loginSystem.RunSystem();
-        LoginUser = loginSystem.GetLoginUser();
-        
+        LoginUser = loginSystem.GetLoginUser();        
+        RunAirPlaneManagementSystem();
+    }
+    public void RunAirPlaneManagementSystem() throws IOException{
         //비행기 관리 시스템
         airPlaneSystem.RunSystem(LoginUser);
-        
     }
 }
