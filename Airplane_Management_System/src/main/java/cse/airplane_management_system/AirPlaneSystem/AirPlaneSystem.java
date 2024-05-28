@@ -2,23 +2,32 @@ package cse.airplane_management_system.AirPlaneSystem;
 
 import cse.airplane_management_system.FileManager;
 import cse.airplane_management_system.LoginSystem.User;
+import cse.airplane_management_system.ReportSystem.FeedbackReport;
+import cse.airplane_management_system.ReportSystem.FeedbackSystem;
+import cse.airplane_management_system.ReportSystem.ReportSystem;
 import cse.airplane_management_system.ReservationSystem.ReservationSystem;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.RepaintManager;
 
 public class AirPlaneSystem {
 
     private List<AirPlane> airPlanes; // 모든 항공편 목록
     private User loginUser; // 로그인된 사용자
     private ReservationSystem reservationSystem; // 예약 시스템
+    private FeedbackSystem feedBackSysyem; //비드백 시스템
+    private ReportSystem reportSystem; //보고서 시스템
     private FileManager fileManager; // 파일 매니저
 
     public AirPlaneSystem() throws IOException {
         airPlanes = new ArrayList<>();
         this.fileManager = new FileManager();
+        
+        reportSystem = new ReportSystem();
+        feedBackSysyem = new FeedbackSystem();
 
         try {
             loadFromFile(); // 프로그램 시작 시 파일에서 정보를 읽어옴
@@ -215,8 +224,13 @@ public class AirPlaneSystem {
                 System.out.println("잘못된 값을 입력하였습니다. ");
             } else {
                 reservationSystem.RunSystem(airPlanes.get(airplaneIndex));
+                //후기 입력 받기
+                feedBackSysyem.collectFeedback();
             }
         }
+    }
+    public void StartReport(){
+        reportSystem.runSystem(airPlanes);
     }
 }
 

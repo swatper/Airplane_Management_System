@@ -4,15 +4,22 @@
  */
 package cse.airplane_management_system.ReportSystem;
 
+import cse.airplane_management_system.AirPlaneSystem.AirPlane;
+import java.util.List;
+
 /**
  *
  * @author 박규리
  */
 public class ReportFactory {
+    private List<AirPlane> AirplaneDB;
+    public void SetDB( List<AirPlane> AirplaneDB){
+        this.AirplaneDB = AirplaneDB;
+    }
     public Report createReport(String reportType) {
         switch (reportType) {
             case "Sales":
-                return new SalesReport();
+                return new SalesReport(AirplaneDB);
             case "Reservation":
                 return new ReservationReport();
             case "Feedback":

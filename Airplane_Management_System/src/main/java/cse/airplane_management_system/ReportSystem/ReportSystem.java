@@ -4,21 +4,26 @@
  */
 package cse.airplane_management_system.ReportSystem;
 
+import cse.airplane_management_system.AirPlaneSystem.AirPlane;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 /**
  *
  * @author 박규리
  */
 public class ReportSystem {
     private ReportFactory reportFactory;
+    private List<AirPlane> AirplneDB;
+    
 
     public ReportSystem() {
         this.reportFactory = new ReportFactory();
     }
 
-    public void runSystem() {
+    public void runSystem( List<AirPlane> AirplneDB) {
+        this.AirplneDB = AirplneDB;
         try (BufferedReader getMenu = new BufferedReader(new InputStreamReader(System.in))) {
             boolean running = true;
             while (running) {
@@ -51,6 +56,7 @@ public class ReportSystem {
     }
 
     public void generateReport(String reportType) {
+        reportFactory.SetDB(AirplneDB);
         Report report = reportFactory.createReport(reportType);
         if (report != null) {
             report.generateReport();

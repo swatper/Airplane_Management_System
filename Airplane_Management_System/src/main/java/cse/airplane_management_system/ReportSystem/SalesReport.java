@@ -15,12 +15,12 @@ import java.util.List;
 public class SalesReport implements Report {
     private List<AirPlane> airplanes;
 
-    public SalesReport() {
-        this.airplanes = loadAirplanes(); // 항공편 리스트를 로드
+    public SalesReport(List<AirPlane> TargetDB) {
+        this.airplanes = loadAirplanes(TargetDB); // 항공편 리스트를 로드
     }
 
-    private List<AirPlane> loadAirplanes() {
-        List<AirPlane> airplanes = new ArrayList<>();
+    private List<AirPlane> loadAirplanes(List<AirPlane> TargetDB) {
+        List<AirPlane> airplanes =TargetDB;
         
         // 예시로 실제 데이터를 불러온다고 가정
         // 실제 구현에서는 데이터베이스나 외부 데이터 소스에서 데이터를 가져와야 함
