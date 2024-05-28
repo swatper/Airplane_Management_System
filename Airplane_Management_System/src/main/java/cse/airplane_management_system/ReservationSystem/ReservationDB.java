@@ -1,12 +1,15 @@
 package cse.airplane_management_system.ReservationSystem;
 
+import cse.airplane_management_system.LoginSystem.ObjectDB;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  * @author 박상현
  */
-class ReservationDB implements ResObjectDB{
+
+//LoginSystem에 있는 ObjectDB Interface 가져옴
+class ReservationDB implements ObjectDB{
     
     private ArrayList<Reservation> ReservationDBList;
     private int dbSize;         //DB의 크기 
@@ -35,6 +38,11 @@ class ReservationDB implements ResObjectDB{
 
     public ArrayList<Reservation> GetReservationDB() {
         return ReservationDBList;
+    }
+    
+    public void DeleteReservation(int index){
+        ReservationDBList.remove(index);
+        dbSize--;
     }
 
     @Override

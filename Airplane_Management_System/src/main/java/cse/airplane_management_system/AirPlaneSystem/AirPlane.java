@@ -24,7 +24,8 @@ public class AirPlane {
         this.isDomestic = isDomestic;
         this.Dates = date;
         this.Airlines = airline;
-        this.Seats = new ArrayList<>();
+        this.Seats = new ArrayList<Boolean>();
+         //좌석 생성
         initializeSeats();
         updateTotalPrice();
     }
@@ -32,17 +33,21 @@ public class AirPlane {
     public AirPlane(String departure, String arrival, String airline, String date, boolean isDomestic, int Price) {
         this.Departures = departure;
         this.Arrivals = arrival;
-        this.isDomestic = isDomestic;
-        this.Dates = date;
         this.Airlines = airline;
+        this.Dates = date;
+        this.isDomestic = isDomestic;
         this.Totalprice = Price;
-        this.Seats = new ArrayList<>();
+        this.Seats = new ArrayList<Boolean>();
+        //좌석 생성
         initializeSeats();
         updateTotalPrice();
     } 
-    
-    
-
+    //예약 삭제용 생성자
+    public AirPlane(String airline, String dates){
+        this.Airlines = airline;
+        this.Dates = dates;
+    }
+   
     // getter 및 setter 메서드
     public String getDepartures() {
         return Departures;

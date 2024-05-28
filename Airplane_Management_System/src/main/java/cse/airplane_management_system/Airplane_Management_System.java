@@ -29,8 +29,7 @@ public class Airplane_Management_System {
         //로그인 시스템
         loginSystem.Init();
         loginSystem.RunSystem();
-        LoginUser = loginSystem.GetLoginUser();
-        
+        LoginUser = loginSystem.GetLoginUser();        
         RunAirPlaneManagementSystem();
     }
     public void RunAirPlaneManagementSystem() throws IOException{
