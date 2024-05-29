@@ -27,7 +27,7 @@ public class LoginSystem {
     }
 
     //객체 전달
-    public static LoginSystem GetSystem() {
+    public static synchronized LoginSystem GetSystem() {
         if (loginSystemObject == null) {
             loginSystemObject = new LoginSystem();
         }
