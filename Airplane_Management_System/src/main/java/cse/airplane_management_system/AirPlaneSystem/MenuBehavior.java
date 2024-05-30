@@ -14,6 +14,6 @@ package cse.airplane_management_system.AirPlaneSystem;
 
 import java.io.IOException;
 // 인터페이스 정의
-public interface MenuStrategy {
+public interface MenuBehavior {
     void showMenu() throws IOException;
 }

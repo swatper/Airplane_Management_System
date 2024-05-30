@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class UserMenuStrategy implements MenuStrategy {
+public class UserMenuStrategy implements MenuBehavior {
     private AirPlaneSystem airPlaneSystem;
 
     public UserMenuStrategy(AirPlaneSystem airPlaneSystem) {

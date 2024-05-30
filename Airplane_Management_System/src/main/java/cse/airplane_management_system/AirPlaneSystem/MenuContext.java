@@ -12,9 +12,9 @@ package cse.airplane_management_system.AirPlaneSystem;
 import java.io.IOException;
 
 public class MenuContext {
-    private MenuStrategy strategy;
+    private MenuBehavior strategy;
 
-    public void setStrategy(MenuStrategy strategy) {
+    public void setStrategy(MenuBehavior strategy) {
         this.strategy = strategy;
     }
 

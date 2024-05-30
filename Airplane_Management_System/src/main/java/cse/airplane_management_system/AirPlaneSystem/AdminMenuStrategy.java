@@ -12,7 +12,7 @@ package cse.airplane_management_system.AirPlaneSystem;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class AdminMenuStrategy implements MenuStrategy {
+public class AdminMenuStrategy implements MenuBehavior {
     private AirPlaneSystem airPlaneSystem;
 
     public AdminMenuStrategy(AirPlaneSystem airPlaneSystem) {
