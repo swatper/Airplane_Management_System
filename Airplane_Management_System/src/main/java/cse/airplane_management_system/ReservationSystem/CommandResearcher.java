@@ -7,7 +7,6 @@ import java.util.Iterator;
  */
 //Receiver
 public class CommandResearcher {
-
     private String targetUserID;
     private String targetAirplaneDate;
     private ReservationDB db;
@@ -15,7 +14,6 @@ public class CommandResearcher {
     private int Type;
     //이터레이터 패턴
     private Iterator iter;
-
     //생성자
     public CommandResearcher(String UserID, ReservationDB DB, int Type) {
         this.targetUserID = UserID;
@@ -25,11 +23,9 @@ public class CommandResearcher {
         this.Type = Type;
         targetAirplaneDate = "5/30";
     }
-
     public void SetDate(String Date) {
         this.targetAirplaneDate = Date;
     }
-
     //예약 내역 조회 기능
     public void Search() {
         Boolean isExist = false;
@@ -66,7 +62,6 @@ public class CommandResearcher {
             System.out.println("예약 내역이 없습니다. ");
         }
     }
-
     public int GetIndex() {
         return Index;
     }

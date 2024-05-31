@@ -23,7 +23,7 @@ public class FeedbackReport implements Report {
         System.out.println("======================================");
         System.out.println("만족도 및 피드백 조회");
         
-        String filePath = "feedback.txt";
+        String filePath =  System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\ReportSystem\\feedback.txt";
         File file = new File(filePath);
 
         if (!file.exists()) {

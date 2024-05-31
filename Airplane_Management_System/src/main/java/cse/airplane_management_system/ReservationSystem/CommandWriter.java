@@ -13,8 +13,7 @@ import java.util.logging.Logger;
 public class CommandWriter{
     public FileManager WriteFile;
     public ReservationDB DB;
-
-    
+    //생성자
     public CommandWriter(ReservationDB InputDB){
         WriteFile = new FileManager();
         this.DB = InputDB;
@@ -26,7 +25,6 @@ public class CommandWriter{
         } catch (IOException ex) {
             Logger.getLogger(CommandWriter.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("DB의 내용을 파일에 적습니다. ");
+        //System.out.println("DB의 내용을 파일에 적습니다. ");
     }
-    
 }

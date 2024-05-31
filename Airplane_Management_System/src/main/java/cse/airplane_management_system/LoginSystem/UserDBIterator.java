@@ -9,18 +9,15 @@ public class UserDBIterator implements Iterator<User> {
 
     private UserDB userDB; //검색을 수행할 userDB
     private int userIndex = 0;
-
     //생성자
     public UserDBIterator(UserDB userDB) {
         this.userDB = userDB;
     }
     //범위 지정
-
     @Override
     public boolean hasNext() {
         return userIndex < userDB.GetDBSize();
     }
-
     //찾은 객체 전달, 0부터 DB의 크기까지 모든 객체를 하나씩 전달함
     @Override
     public User next() {
@@ -28,11 +25,9 @@ public class UserDBIterator implements Iterator<User> {
         userIndex++;
         return targetUser;
     }
-    
    @Override
     public void remove() {
         userDB.DeleteUser(userIndex - 1); // 현재 인덱스의 이전 인덱스의 유저 삭제
         userIndex--; // 인덱스 감소
     }
-    
 }

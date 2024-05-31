@@ -13,17 +13,14 @@ public class ReservationDBIterator implements Iterator<Reservation>{
     public ReservationDBIterator(ReservationDB DB){
         this.ResDB = DB;
     }
-
     @Override
     public boolean hasNext() {    
         return ResIndex < ResDB.GetDBSize();
     }
-
     @Override
     public Reservation next() {
         Reservation targetRes = ResDB.GetReservation(ResIndex);
         ResIndex++;
         return targetRes;
     }
-    
 }

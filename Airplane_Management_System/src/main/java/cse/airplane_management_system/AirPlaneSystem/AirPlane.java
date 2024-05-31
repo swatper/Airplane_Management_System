@@ -15,8 +15,6 @@ public class AirPlane {
     private int Price;         // 가격
     private ArrayList<Boolean> Seats; // 좌석 정보
     private int Totalprice = 0;    // 항공편 전체 가격 (예약된 좌석 수 * 항공편 가격)
-    
-
     // 생성자
     public AirPlane(String departure, String arrival, String airline, String date, boolean isDomestic) {
         this.Departures = departure;
@@ -30,13 +28,13 @@ public class AirPlane {
         updateTotalPrice();
     }
     //기존에 있는 개체 생성할 때 사용할 생성자
-    public AirPlane(String departure, String arrival, String airline, String date, boolean isDomestic, int Price) {
+    public AirPlane(String departure, String arrival, String airline, String date, boolean isDomestic, int TotalPrice) {
         this.Departures = departure;
         this.Arrivals = arrival;
         this.Airlines = airline;
         this.Dates = date;
         this.isDomestic = isDomestic;
-        this.Totalprice = Price;
+        this.Totalprice = TotalPrice;
         this.Seats = new ArrayList<Boolean>();
         //좌석 생성
         initializeSeats();
@@ -47,66 +45,51 @@ public class AirPlane {
         this.Airlines = airline;
         this.Dates = dates;
     }
-   
     // getter 및 setter 메서드
     public String getDepartures() {
         return Departures;
     }
-
     public void setDepartures(String departure) {
         this.Departures = departure;
     }
-
     public String getArrivals() {
         return Arrivals;
     }
-
     public void setArrivals(String arrival) {
         this.Arrivals = arrival;
     }
-
     public String getDates() {
         return Dates;
     }
-
     public void setDates(String date) {
         this.Dates = date;
     }
-
     public int getPrice() {
         return Price;
     }
-
     public void setPrice(int price) {
         this.Price = price;
         updateTotalPrice();
     }
-
     public String getAirlines() {
         return Airlines;
     }
-
     public void setAirlines(String airline) {
         this.Airlines = airline;
     }
-
     public ArrayList<Boolean> getSeats() {
         return Seats;
     }
-
     public void setSeats(ArrayList<Boolean> seats) {
         this.Seats = seats;
         updateTotalPrice();
     }
-
     public int getTotalprice() {
         return Totalprice;
     }
-    
     public boolean isDomestic() {
     return isDomestic;
 }
-
     // 전체 가격 업데이트 메서드
     private void updateTotalPrice() {
         int reservedSeats = 0;
@@ -117,12 +100,10 @@ public class AirPlane {
         }
         this.Totalprice = this.Price * reservedSeats; // 항공편 가격 * 예약된 좌석 수
     }
-
     //매출 증가 메서드
     public void AddTotalPrice(int price){
-        Totalprice+= price;
+        this.Totalprice+= price;
     }
-    
     // 좌석 초기화 메서드
     private void initializeSeats() {
         this.Seats.clear();

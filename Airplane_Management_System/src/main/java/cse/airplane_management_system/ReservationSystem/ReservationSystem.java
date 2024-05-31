@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 //Command Pattern Client
 public class ReservationSystem {
-
     public User loginUser;
     public AirPlane ReservAirplane;
     public int targerAirlineIndex = 0;
@@ -29,34 +28,27 @@ public class ReservationSystem {
     public CommandResearch ResearchCommand;
     //Command 패턴의 리모컨 
     public CommandController Controller;
-
     //생성자(싱글턴 패턴)
     private ReservationSystem(User LoginUser) {
         this.loginUser = LoginUser;
     }
-
     public static ReservationSystem GetSystem(User LoginUser) {
         if (reservationSystem == null) {
             reservationSystem = new ReservationSystem(LoginUser);
         }
         return reservationSystem;
     }
-
     //DB정보 가져오기(보고서 시스템에서 예약 현황 확인할 때 사용할 객체 배열)
     public ReservationDB GetReservationDB() {
         return DB;
     }
-
     //시스템 초기화 작업
     public void Init() throws IOException {
-
         DB = new ReservationDB();
         //리모컨 객체 생성
         Controller = new CommandController();
-
         fileManager = new FileManager();
         fileManager.createDBFile(2, "ReservationSystem");
-
         //파일에 있는 내용으로 객체 만들기
         ArrayList<String> readContext = fileManager.readDBFile(2);
         for (String temp : readContext) {
@@ -65,7 +57,6 @@ public class ReservationSystem {
             DB.AddRes(tempRes);
         }
     }
-
     //시스템 시작(메인 메뉴)
     public void RunSystem(AirPlane TargetAirPlane) throws IOException {
         ReservAirplane = TargetAirPlane;
@@ -96,41 +87,10 @@ public class ReservationSystem {
             }
         }
     }
-
-    //로그인 고객의 이름을 이용해서 예약 내역 조회
-    public void Lookup(int Type, AirPlane targetAirplane) {
-        //------------------------Command 패턴 사용
-        Researcher = new CommandResearcher(loginUser.getUserID(), DB, Type);
-        Researcher.SetDate(targetAirplane.getDates());
-        ResearchCommand = new CommandResearch(Researcher);
-        Controller.SetCommand(ResearchCommand);
-        Controller.RunCommand();
-        targerAirlineIndex = Researcher.GetIndex();
-    }
-
     //예약 하기(항공기 객체 배열 받아와서 항공기 객체 선택하기)
     public void Reservate() throws IOException {
-        /*System.out.println("원하시는 항공사를 선택해주세요: 1. 대한항공 2. 아시아나항공 3. 부산에어 ");
-        BufferedReader getAirline = new BufferedReader(new InputStreamReader(System.in));
-        int AirlineNum = Integer.parseInt(getAirline.readLine());
-        //비행기 객체의 속성 값을 가져올 예정
-        switch (AirlineNum) {
-            case 1:
-                airlineName = "KorAir";
-                break;
-            case 2:
-                airlineName = "AsiAir";
-                break;
-            case 3:
-                airlineName = "BusAir";
-                break;
-            default:
-                System.out.println("옳바른 메뉴를 선택해주세요. ");
-                break;
-        }*/
         SelectSeat();
     }
-
     //예약 내역 추가(항공기 객체 받아와서 항공기 객체 정보 사용)
     public void SelectSeat() throws IOException {
         while (true) {
@@ -158,7 +118,7 @@ public class ReservationSystem {
                 else{
                      ReservAirplane.AddTotalPrice(70000);
                 }
-                
+                //System.out.println(ReservAirplane.getTotalprice());
                 //파일에 저장
                 AddReservation(PhoneNum, SeatNum);
                 System.out.println("예약 완료 ");
@@ -166,17 +126,15 @@ public class ReservationSystem {
             }
         }
     }
-
     //예약 내역 파일에 추가
     public void AddReservation(String PhoneNum, String SeatNum) {
         Reservation NewRes = new Reservation(ReservAirplane.getAirlines(), ReservAirplane.getDates(), loginUser.getUserID(), loginUser.getUserName(), PhoneNum, SeatNum);
-        System.out.println(ReservAirplane.getDates());
+        //System.out.println(ReservAirplane.getDates());
         //DB에 추가
         DB.AddRes(NewRes);
         //파일에 적기
         WriteFile();
     }
-
     //예약 취소 메서드
     public void CancelReservation() throws IOException {
         System.out.print("취소하려는 항공편을 입력해주세요: ");
@@ -193,7 +151,16 @@ public class ReservationSystem {
         //파일에 적기
         WriteFile();
     }
-
+     //로그인 고객의 이름을 이용해서 예약 내역 조회
+    public void Lookup(int Type, AirPlane targetAirplane) {
+        //------------------------Command 패턴 사용
+        Researcher = new CommandResearcher(loginUser.getUserID(), DB, Type);
+        Researcher.SetDate(targetAirplane.getDates());
+        ResearchCommand = new CommandResearch(Researcher);
+        Controller.SetCommand(ResearchCommand);
+        Controller.RunCommand();
+        targerAirlineIndex = Researcher.GetIndex();
+    }
     //객체 배열 받아서 파일에 적는 메서드
     public void WriteFile() {
         //------------------------Command 패턴 사용

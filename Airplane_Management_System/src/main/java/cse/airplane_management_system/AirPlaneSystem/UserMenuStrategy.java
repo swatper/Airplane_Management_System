@@ -15,11 +15,9 @@ import java.util.Scanner;
 
 public class UserMenuStrategy implements MenuBehavior {
     private AirPlaneSystem airPlaneSystem;
-
     public UserMenuStrategy(AirPlaneSystem airPlaneSystem) {
         this.airPlaneSystem = airPlaneSystem;
     }
-
     @Override
     public void showMenu() throws IOException {
         Scanner scanner = new Scanner(System.in);

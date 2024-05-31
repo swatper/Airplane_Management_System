@@ -46,11 +46,11 @@ public class FeedbackSystem {
         System.out.println("================================================================================");
 
         saveFeedbackToFile(satisfaction, feedback);
-        scanner.close();
+        //scanner.close();
     }
 
 private void saveFeedbackToFile(double satisfaction, String feedback) {
-        String filePath = "feedback.txt";
+        String filePath =  System.getProperty("user.dir") + "\\src\\main\\java\\cse\\airplane_management_system\\ReportSystem\\feedback.txt";
 
         try (PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filePath, true), StandardCharsets.UTF_8))) {
             printWriter.println("만족도: " + satisfaction);

@@ -13,7 +13,6 @@ public class AsianaAirFactory implements AirPlaneFactory {
     public AirPlane createDomesticAirPlane(String departure, String arrival, String date) {
         return new DomesticAirPlane(departure, arrival, "Asiana Airlines", date);
     }
-    
     @Override
     public AirPlane createInternationalAirPlane(String departure, String arrival, String date){
         return new InternationalAirPlane(departure, arrival, "Asiana Airlines", date);

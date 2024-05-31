@@ -17,5 +17,4 @@ public class FeedbackSystem_TestDriver {
         FeedbackSystem feedbackSystem = new FeedbackSystem();
         feedbackSystem.collectFeedback();
     }
-    
 }

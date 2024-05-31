@@ -20,8 +20,8 @@ public class SalesReport implements Report {
     }
 
     private List<AirPlane> loadAirplanes(List<AirPlane> TargetDB) {
-        List<AirPlane> airplanes =TargetDB;
-        
+        this.airplanes =TargetDB;
+        /*
         // 예시로 실제 데이터를 불러온다고 가정
         // 실제 구현에서는 데이터베이스나 외부 데이터 소스에서 데이터를 가져와야 함
         List<Boolean> seats1 = List.of(true, false, true, true, false); // 3개의 좌석 예약됨
@@ -31,7 +31,7 @@ public class SalesReport implements Report {
         airplane1.setPrice(200);
         
         airplanes.add(airplane1);
-        
+        */
         return airplanes;
     }
 

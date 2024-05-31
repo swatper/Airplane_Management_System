@@ -7,5 +7,4 @@ package cse.airplane_management_system.ReservationSystem;
 //Command Interface
 public interface Command {
     public void execute();
-    
 }

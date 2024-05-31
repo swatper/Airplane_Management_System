@@ -16,7 +16,6 @@ public class InternationalAirPlane extends AirPlane {
      public InternationalAirPlane(String departure, String arrival, String airline, String date, int price) {
         super(departure, arrival, airline, date, false, price);
     }
-
     @Override
     public boolean isDomestic() {
         return false;

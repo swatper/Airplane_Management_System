@@ -14,14 +14,12 @@ import java.util.List;
 import javax.swing.RepaintManager;
 
 public class AirPlaneSystem {
-
     private List<AirPlane> airPlanes; // 모든 항공편 목록
     private User loginUser; // 로그인된 사용자
     private ReservationSystem reservationSystem; // 예약 시스템
     private FeedbackSystem feedBackSysyem; //비드백 시스템
     private ReportSystem reportSystem; //보고서 시스템
     private FileManager fileManager; // 파일 매니저
-
     public AirPlaneSystem() throws IOException {
         airPlanes = new ArrayList<>();
         this.fileManager = new FileManager();
@@ -35,7 +33,6 @@ public class AirPlaneSystem {
             System.out.println("파일에서 정보를 읽어오는 동안 오류가 발생했습니다: " + e.getMessage());
         }
     }
-
     // 파일에서 항공편 정보 읽기
     public void loadFromFile() throws IOException {
         List<String> lines = fileManager.readDBFile(1); // 1은 항공기 시스템을 나타냄
@@ -47,14 +44,14 @@ public class AirPlaneSystem {
                 String airline = parts[2];
                 boolean isDomestic = parts[3].equals("Domestic");
                 String date = parts[4];
-                int price = Integer.parseInt(parts[5]);
+                int totalprice = Integer.parseInt(parts[5]);
 
                 AirPlane airPlane;
                 if (isDomestic) {
-                    airPlane = new DomesticAirPlane(departure, arrival, airline, date, price);
+                    airPlane = new DomesticAirPlane(departure, arrival, airline, date, totalprice);
                     System.out.println("국내선 객체 생성 및 배열에 추가");
                 } else {
-                    airPlane = new InternationalAirPlane(departure, arrival, airline, date, price);
+                    airPlane = new InternationalAirPlane(departure, arrival, airline, date, totalprice);
                     System.out.println("국제선 객체 생성 및 배열에 추가");
                 }
                 airPlanes.add(airPlane);
@@ -63,12 +60,11 @@ public class AirPlaneSystem {
             }
         }
     }
-
     // 파일에 항공편 정보 저장
     public void saveToFile() throws IOException {
+        System.out.println("변경사항 저장");
         fileManager.writeDBFile(1, airPlanes); // 1은 항공기 시스템을 나타냄
     }
-
     // 새로운 항공편 추가 메서드
     public void addAirPlane(String departure, String arrival, String type, String airline, String date) {
         //팩토리 패턴
@@ -106,7 +102,6 @@ public class AirPlaneSystem {
             System.out.println("파일에 저장하는 동안 오류가 발생했습니다: " + e.getMessage());
         }
     }
-
     // 모든 항공편 정보 출력 메서드
     public void printAllAirPlanes() {
         if (airPlanes.isEmpty()) {
@@ -121,7 +116,6 @@ public class AirPlaneSystem {
         System.out.println("국제선 항공편 목록:");
         printInternationalAirPlanes();
     }
-
     // 국내선 항공편 정보 출력 메서드
     public void printDomesticAirPlanes() {
         if (airPlanes.isEmpty()) {
@@ -139,7 +133,6 @@ public class AirPlaneSystem {
             }
         }
     }
-
     // 국제선 항공편 정보 출력 메서드
     public void printInternationalAirPlanes() {
         if (airPlanes.isEmpty()) {
@@ -157,7 +150,6 @@ public class AirPlaneSystem {
             }
         }
     }
-
     // 항공편 수정 메서드
     public void updateAirPlane(int index, String departure, String arrival, String airline, String date, int newPrice) {
         if (index >= 0 && index < airPlanes.size()) {
@@ -177,7 +169,6 @@ public class AirPlaneSystem {
             System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
         }
     }
-
     // 항공편 삭제 메서드
     public void deleteAirPlane(int index) {
         if (index >= 0 && index < airPlanes.size()) {
@@ -192,7 +183,6 @@ public class AirPlaneSystem {
             System.out.println("해당 인덱스의 항공편이 존재하지 않습니다.");
         }
     }
-
     // 실행 메서드
     public void RunSystem(User GetUser) throws IOException {
         this.loginUser = GetUser;
@@ -208,11 +198,7 @@ public class AirPlaneSystem {
         }
         //메뉴 내용 불러오기
         menuContext.executeStrategy();
-        
-        //매출 변화 파일에 저장
-        saveToFile();
     }
-
     //항공편 선택 받아서 예약 시스템에게 넘기기
     public void StartReservate() throws IOException {
         while (true) {
@@ -226,7 +212,9 @@ public class AirPlaneSystem {
                 reservationSystem.RunSystem(airPlanes.get(airplaneIndex));
                 //후기 입력 받기
                 feedBackSysyem.collectFeedback();
+                return;
             }
+            fileManager.writeDBFile(1, airPlanes);
         }
     }
     public void StartReport(){

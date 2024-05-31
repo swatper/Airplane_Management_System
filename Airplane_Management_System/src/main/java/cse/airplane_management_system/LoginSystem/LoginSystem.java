@@ -11,7 +11,6 @@ import java.util.Iterator;
  * @author 박상현
  */
 public class LoginSystem {
-
     public User LoginUser;  //현재 로그인중인 유저를 저장할 변수
     private FileManager fileManager;
     private UserDB DB;
@@ -21,11 +20,8 @@ public class LoginSystem {
     //템플릿 메서드 패턴의 객체
     public AlgoLogin login;
     public AlgoAddAccount addAccount;
-
     //생성자(싱글톤 패턴)
-    private LoginSystem() {
-    }
-
+    private LoginSystem() {}
     //객체 전달
     public static synchronized LoginSystem GetSystem() {
         if (loginSystemObject == null) {
@@ -33,8 +29,7 @@ public class LoginSystem {
         }
         return loginSystemObject;
     }
-
-    //파일에 저장되어 있는 User정보String)로 User 객체 생성(시스템 초기화 작업)
+    //파일에 저장되어 있는 User정보(String)로 User 객체 생성(시스템 초기화 작업)
     public void Init() throws IOException {
         LoginUser = null;
         DB = new UserDB();
@@ -50,15 +45,13 @@ public class LoginSystem {
         login = new AlgoLogin();
         addAccount = new AlgoAddAccount();
     }
-
-    //Swing으로 아이디 비번 입력받고 해당 값이 객체 배열에 있는지 확인 (스윙쓰면 이 부분 불필요)
+    //Swing으로 아이디 비번 입력받고 해당 값이 객체 배열에 있는지 확인 
     public void RunSystem() throws IOException {
         while (LoginUser == null) {
             System.out.println("======================================");
             System.out.println("원하는 메뉴를 선택하세요: 1.로그인  2. 회원가입 3. 고객정보 수정 및 삭제");
             BufferedReader GetMenu = new BufferedReader(new InputStreamReader(System.in));
             int MenuMode = Integer.parseInt(GetMenu.readLine());
-
             switch (MenuMode) {
                 //로그인 메서드 호출
                 case 1:
@@ -74,12 +67,10 @@ public class LoginSystem {
             }
         }
     }
-
-    //로그인 기능 (스윙 필요)
+    //로그인 기능
     public void Login() throws IOException {
         //템플릿 메서드 객체 사용
         User loginUser = login.GetUserInput();
-
         //입력한 정보가 로그인 DB에 있는지 확인
         if (FindUser(loginUser)) {
             if ("Admin".equals(loginUser.getUserID())) {
@@ -92,25 +83,21 @@ public class LoginSystem {
             System.out.println("고객 정보 없음");
         }
     }
-
-    //회원가입 기능(스윙 필요)
+    //회원가입 기능
     public void AddAccount() throws IOException {
-        
         //템플릿 메서드 패턴 객체 생성 및 배열에 추가
         DB.AddUser(addAccount.GetUserInput());
         // 파일에 저장
         fileManager.writeDBFile(0, DB.GetUserDB());
-        
+
         System.out.println("회원가입 성공!!");
     }
-    
     // 새로운 메서드 추가: 고객 정보 수정 및 삭제 메뉴
     public void ModifyOrDeleteUserInfo() throws IOException {
         System.out.println("======================================");
         System.out.println("원하는 작업을 선택하세요: 1.고객 정보 수정  2.고객 정보 삭제 3. 고객 정보 조회");
         BufferedReader GetMenu = new BufferedReader(new InputStreamReader(System.in));
         int MenuMode = Integer.parseInt(GetMenu.readLine());
-
         switch (MenuMode) {
             case 1:
                 // 고객 정보 수정 메서드 호출
@@ -122,7 +109,7 @@ public class LoginSystem {
                 break;
             case 3:
                 // 고객 정보 조회 메서드 호출
-               System.out.println("관리자 로그인이 필요합니다.");
+                System.out.println("관리자 로그인이 필요합니다.");
                 Login();
                 if (LoginUser != null && LoginUser.isAdmin()) {
                     System.out.println("관리자 로그인 성공");
@@ -134,9 +121,8 @@ public class LoginSystem {
             default:
                 System.out.println("잘못된 선택입니다.");
                 break;
+        }
     }
-}
-
     //DB로부터 고객 찾기
     public Boolean FindUser(User Target) {
         Boolean isUserExist = false;
@@ -155,17 +141,10 @@ public class LoginSystem {
         }
         return isUserExist;
     }
-    
-    // 고객 정보 삭제 메서드
-    /*public void DeleteUser(User deleteUser) {
-        userDBList.remove(deleteUser);
-    }*/
-
     //고객 정보 수정(이터레이터 패턴)
     public void ModifyUser(String userId, User modifyUser) throws IOException {
         //Iterator 객체 생성
         Iter = DB.CreatIterator();
-
         //수정할 회원 객체 찾기
         while (Iter.hasNext()) {
             //특정 위치에 있는 객체 Iterato로 받기
@@ -183,17 +162,14 @@ public class LoginSystem {
         //변경사항 파일에 저장
         fileManager.writeDBFile(0, DB.GetUserDB());
     }
-    
     // 고객 정보 수정 메서드
     public void ModifyUserInfo() throws IOException {
         System.out.println("======================================");
         System.out.print("수정할 고객의 아이디를 입력하세요: ");
         BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
         String userID = GetID.readLine();
-    
         // 해당 아이디를 가진 고객 정보 객체 찾기
         User modifyUser = FindUserByID(userID);
-    
         if (modifyUser != null) { // 수정할 고객 정보가 존재하는 경우
             System.out.println("수정할 정보를 입력하세요:");
             // 새로운 정보 입력
@@ -206,44 +182,36 @@ public class LoginSystem {
             System.out.print("주소: ");
             BufferedReader GetAddress = new BufferedReader(new InputStreamReader(System.in));
             String newAddress = GetAddress.readLine();
-
             // 수정할 정보를 새로운 값으로 업데이트
             modifyUser.SetName(newName);
             modifyUser.SetAge(newAge);
             modifyUser.SetAddress(newAddress);
-
             // 파일에 변경사항 저장
             fileManager.writeDBFile(0, DB.GetUserDB());
             System.out.println("고객 정보가 성공적으로 수정되었습니다.");
-            }
-            else { // 수정할 고객 정보가 존재하지 않는 경우
+        } else { // 수정할 고객 정보가 존재하지 않는 경우
             System.out.println("해당 아이디를 가진 고객 정보가 없습니다.");
         }
     }
-    
     // 고객 정보 삭제 메서드
     public void DeleteUserInfo() throws IOException {
         System.out.println("======================================");
         System.out.print("삭제할 고객의 아이디를 입력하세요: ");
         BufferedReader GetID = new BufferedReader(new InputStreamReader(System.in));
         String userID = GetID.readLine();
-
         // 해당 아이디를 가진 고객 정보 객체 찾기
         User deleteUser = FindUserByID(userID);
-
         if (deleteUser != null) { // 삭제할 고객 정보가 존재하는 경우
             // 고객 정보 삭제
             DB.DeleteUser(targetUserIndex);
-            
             // 파일에 변경사항 저장
             fileManager.writeDBFile(0, DB.GetUserDB());
             System.out.println("고객 정보가 성공적으로 삭제되었습니다.");
-            } 
-            else { // 삭제할 고객 정보가 존재하지 않는 경우
+        } else { // 삭제할 고객 정보가 존재하지 않는 경우
             System.out.println("해당 아이디를 가진 고객 정보가 없습니다.");
         }
     }
-        // 아이디를 이용하여 해당 고객 정보를 찾는 메서드
+    // 아이디를 이용하여 해당 고객 정보를 찾는 메서드
     public User FindUserByID(String userID) {
         targetUserIndex = 0;
         Iter = DB.CreatIterator();
@@ -255,7 +223,7 @@ public class LoginSystem {
             targetUserIndex++;
         }
         return null;
-    }   
+    }
     // 모든 고객 정보 조회 메서드 (관리자 전용)
     public void ViewUserInfo() throws IOException {
         System.out.println("======================================");
@@ -266,10 +234,8 @@ public class LoginSystem {
             System.out.println(user.getFormattedUserInfo());
         }
     }
-    
     //로그인 유저를 메인 시스템에 전달
     public User GetLoginUser() {
         return LoginUser;
     }
-
 }

@@ -14,11 +14,9 @@ import java.util.Scanner;
 
 public class AdminMenuStrategy implements MenuBehavior {
     private AirPlaneSystem airPlaneSystem;
-
     public AdminMenuStrategy(AirPlaneSystem airPlaneSystem) {
         this.airPlaneSystem = airPlaneSystem;
     }
-
     @Override
     public void showMenu() throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -28,8 +26,8 @@ public class AdminMenuStrategy implements MenuBehavior {
             System.out.println("1. 새로운 항공편 추가");
             System.out.println("2. 항공편 수정");
             System.out.println("3. 항공편 삭제");
-            System.out.println("5. 보고서");
-            System.out.println("4. 메인 메뉴로 돌아가기");
+            System.out.println("4. 보고서");
+            System.out.println("5. 메인 메뉴로 돌아가기");
             System.out.print("메뉴를 선택하세요: ");
             int adminChoice = scanner.nextInt();
             scanner.nextLine(); // 버퍼 비우기
@@ -148,7 +146,7 @@ public class AdminMenuStrategy implements MenuBehavior {
                     airPlaneSystem.StartReport();
                     break;
                 case 5:
-                    return;
+                    break;
                 default:
                     System.out.println("잘못된 선택입니다. 다시 선택해주세요.");
             }

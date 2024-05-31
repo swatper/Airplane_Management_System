@@ -13,8 +13,8 @@ public class DomesticAirPlane extends AirPlane {
     public DomesticAirPlane(String departure, String arrival, String airline, String date) {
         super(departure, arrival, airline, date, true);
     }
-     public DomesticAirPlane(String departure, String arrival, String airline, String date, int price) {
-        super(departure, arrival, airline, date, true, price);
+     public DomesticAirPlane(String departure, String arrival, String airline, String date, int totalprice) {
+        super(departure, arrival, airline, date, true, totalprice);
     }
 
     @Override
